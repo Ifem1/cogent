@@ -2,8 +2,8 @@
 
 **Status: NOT DEPLOYED.** To be filled strictly from real CLI output and GenLayer Studio Explorer after the Codex handoff.
 
-- Contract source commit SHA: PENDING (set after the reviewed source commit)
-- Contract source SHA-256: PENDING (generate with `scripts/preflight.py` after the reviewed source commit)
+- Contract source commit SHA: `2b0f06912f6e225af209ce2efffcc89294bfd199`
+- Contract source SHA-256: `6ad15f02bab30fcf6910e8099090d310ee1b3cb8138939c3c7f8bc8622b14a61` (`scripts/preflight.py`)
 - GenVM lint/typecheck: PASSED locally; v0.11.0 / GenVM v0.2.12; see `docs/TESTING.md`
 - Network: Studionet (61999)
 - RPC: `https://studio.genlayer.com/api`

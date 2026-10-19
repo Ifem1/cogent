@@ -8,6 +8,7 @@
 - GenLayer Direct Mode suite: 88 passed, including unit and VM-backed contract tests on the pinned GenVM v0.2.12 runner.
 - Contract mutation suite: 9 deliberate source mutations killed by the targeted VM tests (`docs/evidence/mutations.json`).
 - Frontend clean `npm ci`, lint, TypeScript check, 11 Vitest tests and Next.js production build pass.
+- GitHub Actions run [39263331649](https://github.com/Ifem1/cogent/actions/runs/39263331649) passed contract, web and security-hygiene jobs on commit `f18a059`.
 - The registry security audit endpoint was unavailable, so vulnerability status remains unknown (`docs/evidence/frontend-audit.json`).
 - The contract config selects Studionet chain 61999 at `https://studio.genlayer.com/api`.
 - No real deployment, validator consensus, injected wallet transaction, GEN transfer or public website verification is recorded.
