@@ -98,10 +98,10 @@ Rejected payable calls create withdrawable credits and are tracked separately. V
 | SDK (frontend) | `genlayer-js@1.1.8` |
 | Wallet | External injected EIP-1193, no application-managed keys |
 | Frontend | Next.js App Router, TypeScript, custom responsive design |
-| Deployed contract address | **Not yet deployed** |
-| Live Vercel URL | **Not yet deployed** |
+| Deployed contract address | `0x5E09f5E1b5E0c3c2e1A85aDcC3C0F097f5902d93` (Studionet) |
+| Live Vercel URL | https://frontend-olive-one-18.vercel.app |
 
-**Do not submit a placeholder contract address.** A real finalized deployment, matching repository source hash, must be committed to `docs/DEPLOYMENT.md` after Codex validates and deploys.
+The source-matched Studionet deployment and production frontend are live. See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) and [`docs/LIVE_VERIFICATION.md`](docs/LIVE_VERIFICATION.md) for finalized receipts, current readback and remaining release gates.
 
 The web app reads final state without requiring a wallet, presents mandate/proposal IDs and status, converts GEN to wei exactly with Viem, and only offers actions permitted by current state, connected wallet role and network. Wallet writes are checked against the active Studionet account and chain, await finalization and validate the contract execution result before reporting success. No mock records and no backend authority.
 

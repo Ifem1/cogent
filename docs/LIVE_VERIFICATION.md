@@ -1,68 +1,60 @@
 # Studionet live verification
 
-**Snapshot: 19 October 2026, 16:02 UTC. Verdict: NOT READY.** This record distinguishes finalized actions from transactions that have not reached validator consensus. The machine-readable readback is [`evidence/live-read-audit.json`](evidence/live-read-audit.json).
+**Snapshot: 19 October 2026, 18:14 UTC.** Three mandates and five proposals are finalized and readable from the source-matched Cogent deployment. The durable readback is [`evidence/live-read-audit.json`](evidence/live-read-audit.json). The read audit reports zero accounting invariant failures.
 
-## Deployed source and frontend
+## Deployment
 
 - Repository: [`Ifem1/cogent`](https://github.com/Ifem1/cogent)
-- Source commit: `2b0f06912f6e225af209ce2efffcc89294bfd199`
+- Contract source commit: `2b0f06912f6e225af209ce2efffcc89294bfd199`
 - Local and deployed SHA-256: `6ad15f02bab30fcf6910e8099090d310ee1b3cb8138939c3c7f8bc8622b14a61`
-- Chain: GenLayer Studionet, 61999 (`https://studio.genlayer.com/api`)
+- GenLayer Studionet, chain 61999; RPC `https://studio.genlayer.com/api`
 - Contract: `0x5E09f5E1b5E0c3c2e1A85aDcC3C0F097f5902d93`
-- Deployment transaction: `0xe5fc6564d85aded41b4234709ca9f22f0a6b564ce31be725775a44fdef6c8887`; status `FINALIZED`; consensus `MAJORITY_AGREE`; five validators agreed; deployment GenVM result `SUCCESS`.
-- Production site: [`https://frontend-olive-one-18.vercel.app`](https://frontend-olive-one-18.vercel.app), HTTP 200; Vercel deployment [`DmMQrzU1dpCVxBMhtafeZ6rRLnkg`](https://vercel.com/ifem1s-projects/frontend/DmMQrzU1dpCVxBMhtafeZ6rRLnkg) is `READY`.
-- Served client bundles contain the contract address; production `NEXT_PUBLIC_COGENT_CONTRACT` is configured.
+- Deployment transaction: `0xe5fc6564d85aded41b4234709ca9f22f0a6b564ce31be725775a44fdef6c8887`, `FINALIZED`, `MAJORITY_AGREE`, five agreeing validators, GenVM `SUCCESS`.
+- Production: [`https://frontend-olive-one-18.vercel.app`](https://frontend-olive-one-18.vercel.app), HTTP 200; Vercel deployment [`DmMQrzU1dpCVxBMhtafeZ6rRLnkg`](https://vercel.com/ifem1s-projects/frontend/DmMQrzU1dpCVxBMhtafeZ6rRLnkg) is READY. Served bundles contain the configured contract address.
 
-## Test wallet roles
+## Test accounts
 
-| Role | Account alias | Address |
+| Role | Alias | Address |
 | --- | --- | --- |
-| Deployment | `cogent-deployer` | `0xd6423ae82a975d55c6ceac222827a727325e0459` |
+| Deployer | `cogent-deployer` | `0xd6423ae82a975d55c6ceac222827a727325e0459` |
 | Principal | `cogent-principal` | `0x39680bd423437c0eaa18493629652821ec672c61` |
 | Agent | `cogent-agent` | `0xa49c51d759790116d451f256654dd9f0549d341f` |
 | Vendor/challenger | `cogent-vendor` | `0x77e2edbb43277bf772e207c517dde731935ffba5` |
 
-The user supplied these as funded throwaway wallets and authorized their use for deployment and tests. Private keys are intentionally excluded from the repository.
+These were user-provided throwaway test wallets. No private keys are stored in the repository.
 
-## Source fixture availability
+## Live outcomes
 
-The compliant fixture URL pinned to commit `e24e3092723c1867590c850dc242ee802d37e578` was fetched twice over HTTPS. Both responses were 328 characters and exactly matched `examples/offer-compliant.json`. The noncompliant immutable fixture uses the same commit and allowed source prefix. Both primary source observations below were finalized.
+Mandate 1 is diagnostic: it was created by the deployer, so the deployer became its principal. It is excluded from the role-correct proof. The separate principal’s wrong-owner challenge was rejected and refunded. Its proposals nevertheless settled: proposal 1 RELEASED after a compliant primary result; proposal 2 REFUSED after noncompliant reviews. All credits from this diagnostic mandate were withdrawn.
 
-## Preliminary diagnostic mandate (not submission proof)
+Mandate 2 was created by the designated principal with the designated agent and vendor, 0.10 GEN funding, 0.02 GEN per-purchase cap, 0.08 GEN vendor cap, frozen policy and a commit-pinned source prefix. Proposal 3 was compliant. The principal challenged it with the exact 0.001 GEN bond; the second review remained COMPLIANT, proposal 3 RELEASED, and the bond was forfeited to the vendor. Proposal 4 was noncompliant. The vendor’s exact 0.001 GEN challenge was upheld by the second review, proposal 4 became REFUSED, its reservation was restored and the bond was forfeited to the principal. A first too-early review request for proposal 4 failed the contract’s retry interval and did not mutate state; the correctly spaced retry finalized.
 
-The first 0.10 GEN mandate was created by `cogent-deployer`; that made the deployer the on-chain owner/principal even though the user assigned a separate principal wallet. The distinct principal's challenge was correctly rejected as the wrong owner, and its 0.001 GEN was credited back. This mandate is retained only as a diagnostic record and must not be counted as role-correct challenge proof.
+Mandate 3 was created by the designated principal for a controlled source-reversal test. Proposal 5’s initial public fixture was compliant during primary review. After the primary result finalized, the public fixture was deliberately changed to include prohibited model training and monthly automatic renewal, committed as `47de018`, and fetched twice over HTTPS to verify it matched the local bytes. The principal submitted an exact 0.001 GEN challenge. The challenge review finalized NON_COMPLIANT, proposal 5 became REFUSED, and the principal’s bond was returned. This is a disclosed mutable-source demonstration, not an immutable-fixture test.
 
-| Action | Transaction | Result |
-| --- | --- | --- |
-| Create 0.10 GEN mandate 1 | `0x93bd7026bd2f4ee5a0a083df78eb385689d9b3a2c020238c44bb3451b0e79544` | Finalized, majority agree |
-| Propose compliant offer, proposal 1 | `0x3fafb62384e18e1f30d853400dd9c1b1a52937ab006aa05b26208618f1660358` | Finalized |
-| Vendor accepts proposal 1 | `0xe8d160dc460b734f6e21c513d7f6979b798facab6d61f7d76c21dcbfe51f4cae` | Finalized |
-| Primary review request/observation | `0x490e8c0d82683bbdf178982c2b30f6e4de8d35bb90c4084ea20b69fe1287effa`; `0x17be3f4122219b79be2bbf6b8fbb126c563ffffb5b87fe903a1a7d31e4402a35` | Final primary manifest `COMPLIANT`; no settlement proof |
-| Principal-key challenge attempt | `0x13b58e2f5b1ad4db4c8de7092675cac489cb8997d7c8c027779e7969ab92b806` | Rejected; wrong on-chain principal; 0.001 GEN credited back |
-| Propose/accept noncompliant proposal 2 | `0xb34a0b4959ad0249ccacf805ccb2f6abd0bfd3e6c8893f7b24f2289b0fcb6bfd`; `0xea6dc0d1bd95a0fdac22b698749610554b3083a07da47c2513ea2687e36ba9fe` | Finalized |
-| Primary review request/observation | `0x0048f9c7e7ac8b6a850194255d95b61f9fc168396ce25b17d8f73704f2134f31`; `0xd3f70b503b69b532d7b9956a0ae81cd4a9f6c2137e9de68f5363bca03957ed19` | Final primary manifest `NON_COMPLIANT`; no settlement proof |
-| Vendor challenge attempt | `0xa4aac33ed580d22037c9e4f8f5eb31244f04b1b0d027351fdbd50ba357a99577` | Bond accepted, but challenge re-review has not been proven |
-
-## Role-correct mandate and pending review
-
-Mandate 2 was funded by the designated principal wallet, with the designated agent, vendor, 0.02 GEN purchase cap, 0.08 GEN vendor cap, 0.10 GEN funding, two-day expiry, frozen policy, and source prefix pinned to the public Git commit above.
+Key proposal 5 receipts:
 
 | Action | Transaction | Result |
 | --- | --- | --- |
-| Create mandate 2 from principal wallet | `0x6c882312319bcb5d6e5de5a426ccc899fb934fce7a325e6e187f7552ab245138` | Finalized, majority agree, 0.10 GEN value |
-| Agent proposes compliant 0.02 GEN offer, proposal 3 | `0x54096dd116f21394351d3015ada11473240d705a6551717ad8840d6add9c269c` | Finalized |
-| Vendor accepts proposal 3 | `0xab4e9ada709774c8125363ffd176a16c24fb105155ed6aa9261d677d50f2ab98` | Finalized |
-| Request primary review | `0x50f1cb1ef0fa31c927acc21e4c03253208993fda95cc9659199fe3e46aa16e14` | Finalized; proposal entered `READY` with a review deadline |
-| Observe primary review | `0x141a5188ddc4a9e23c12e4d77429f80e7e8b0f539bd9694395e4d7afe29bd8cd` | Leader execution succeeded and independently returned `COMPLIANT`, but transaction remains **not finalized** in `COMMITTING` with zero validator commits/reveals (`NO_MAJORITY`). Receipt polling later received an HTML error from the RPC. Review deadline passed without an on-chain verdict. |
-| Expire review 3 | `0xa6891a4e0aefcd55c59ddf372311db2536d6ae482a32be4781c31e8cb529e095` | **Pending.** Last queried status was `PENDING`, no validator votes. |
+| Create mandate 3 | `0x41a63b4712e6450294f1cea2dcdfcdf61054dee0f9b0bb38ca0f8c43db0ae1a6` | Finalized |
+| Propose 5 | `0xae883b390e5f4ae901bdbe0836f3051e8af3fc534d91af8c314ee9d8c1b73bfd` | Finalized |
+| Vendor accepts | `0x2e493946df1d8ce162475f4dd106a3655b23881ee6b9d13fd7d8a2cba58de1dd` | Finalized |
+| Request primary review | `0x793068911592581a374f548053b9959cd63cf8c6c2379ad6d9acbf9dda52ef7a` | Finalized |
+| Observe primary review | `0x797740750361a07f4e26b6121cfbf4bb949e475db32a9854ae5e5da742504093` | COMPLIANT, finalized |
+| Principal challenges with 0.001 GEN | `0x40408838e0d43b70ac25f8e2b4884c6af172a470a61ed188c9afb8f28bfd1fd6` | Finalized |
+| Request challenge review | `0xc0325839b0a09110e5cbb3bf5b1f8f927079aff3ea3f21378225daafa70ca955` | Finalized, majority agree |
+| Observe challenge review | `0xb547d3ac3877b45e0a5ef2ee13eedc799c0ec336fefe383c7615d688ab8f8079` | NON_COMPLIANT, finalized, majority agree |
+| Principal withdraws returned bond | `0x108dcb817596dd055464eb5ef56e1a83d476c845dd2f8d2faca7011d2203add9` | Finalized, majority agree |
 
-No verdict, challenge outcome, payment, bond forfeiture, or withdrawal is inferred from the pending transactions. Current canonical readback reports zero invariant failures, but proposal 3 remains unsettled. The network must finalize the review/recovery transaction before the role-correct test can continue.
+The read audit confirms proposal states `[RELEASED, REFUSED, RELEASED, REFUSED, REFUSED]`, all reservations and proposal bonds at zero, and all party credits withdrawn. Across all mandates it records 0.004 GEN challenge bonds received, 0.003 GEN forfeited and 0.001 GEN returned. Mandate 2’s compliant proposal paid 0.02 GEN; mandate 3’s refused offer value was not paid.
 
-## Local and hosted checks
+## Verification and remaining release gates
 
-- GenLayer Direct Mode: 88 passed; 9 mutation tests killed.
-- Frontend: lint, TypeScript, 11 tests and production build passed locally.
-- Vercel remote production build: passed; site returned HTTP 200 and client bundles carried the configured contract address.
-- GitHub Actions: run [39268459378](https://github.com/Ifem1/cogent/actions/runs/39268459378) passed all three jobs on commit `e24e3092723c1867590c850dc242ee802d37e578`.
-- Live read audit: source hash equality and exact-wei accounting invariants passed at the recorded snapshot; it does not prove pending transaction execution.
-- Full-tree npm audit retains five high dev-only entries from the same unpatched `braces@3.0.3` advisory. Production dependency audit has zero findings.
+- Contract Direct Mode suite: 88 passed; 9 deliberate source mutations killed.
+- Frontend lint, TypeScript, 11 Vitest tests and production build passed; hosted Vercel production build passed.
+- GitHub Actions passed for the fixture changes through commit `47de018`.
+- Read-only audit: deployed source hash matches; 3 mandates, 5 proposals, 0 invariant failures.
+- Full-tree npm audit still has five high records from one unpatched dev-only `braces@3.0.3` advisory in the ESLint chain; production dependency audit is clean. See [`evidence/frontend-audit.json`](evidence/frontend-audit.json).
+- The live exercise proves role-correct compliant settlement, both challenge directions and a controlled source reversal. It does not yet execute the full inconclusive-review recovery protocol or a real external vendor document, and the demo vendor is a controlled wallet.
+- Vercel has no connected Git repository, so preview-branch configuration is unavailable; production was deployed from the reviewed local frontend.
+
+These remaining scope and advisory items must be accepted or completed before describing the project as fully submission-ready.

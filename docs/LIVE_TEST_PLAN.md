@@ -1,6 +1,6 @@
-# Live Studionet proof protocol (UNEXECUTED)
+# Live Studionet proof protocol and remaining checks
 
-All steps must be run on the final canonical contract address after the source passed GenVM checks and Direct Mode. Use three externally controlled CLI wallets already available to the operator: principal A, agent B and vendor C. No keys belong in the repository, dotenv, frontend or evidence files. Capture actual transaction hashes, `FINALIZED`, consensus Accepted, actual successful GenVM execution and durable contract state for each action. A hash alone does not equal success.
+Core A/B and challenge scenarios have now been run on the final canonical contract address after GenVM checks and Direct Mode. See [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md) for actual receipts. This file describes the protocol and the remaining optional rubric checks. Use three externally controlled CLI wallets already available to the operator: principal A, agent B and vendor C. No keys belong in the repository, dotenv, frontend or evidence files. Capture actual transaction hashes, `FINALIZED`, consensus Accepted, actual successful GenVM execution and durable contract state for each action. A hash alone does not equal success.
 
 ## Source fixtures
 
