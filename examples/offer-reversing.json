@@ -1,0 +1,9 @@
+{
+  "offer_ref": "COGENT_REVERSAL_QUOTE_2026",
+  "vendor": "Demo Vendor — controlled mutable test endpoint",
+  "commercial_use": "permitted",
+  "automated_processing": "permitted",
+  "model_training_on_customer_data": "prohibited",
+  "recurring_subscription": "none",
+  "note": "Controlled reversal fixture. This file is deliberately updated between the primary and challenge reviews; it does not represent a real vendor offer."
+}
