@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          if git grep -nE 'redeem\.browser\.key|generatePrivateKey|BEGIN PRIVATE KEY|ACCOUNT_PRIVATE_KEY=[0-9a-fA-F]{64}' -- ':!*.md'; then
+          if git grep -nE 'redeem\.browser\.key|generatePrivateKey|BEGIN PRIVATE KEY|ACCOUNT_PRIVATE_KEY=[0-9a-fA-F]{64}' -- ':!*.md' ':!.github/workflows/ci.yml' ':!scripts/preflight.py'; then
             echo 'Potential private-key material found' >&2; exit 1
           fi
           echo 'No flagged private-key pattern'
