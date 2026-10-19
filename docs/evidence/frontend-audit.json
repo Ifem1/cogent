@@ -1,0 +1,7 @@
+{
+  "status": "unavailable",
+  "command": "npm audit --json",
+  "date": "2026-10-19",
+  "reason": "The npm registry security audit endpoint could not be reached from this environment. No vulnerability count is inferred from this failed request.",
+  "lockfile": "frontend/package-lock.json"
+}

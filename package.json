@@ -1,0 +1,1 @@
+{"name":"cogent-tools","private":true,"version":"1.0.0","scripts":{"preflight":"python3 scripts/preflight.py","lint-contract":"genvm-lint check contracts/cogent.py","network":"genlayer network info","deploy:studionet":"genlayer deploy --contract contracts/cogent.py --rpc https://studio.genlayer.com/api"},"devDependencies":{"genlayer":"0.39.1"}}

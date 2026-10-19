@@ -1,0 +1,9 @@
+{
+  "offer_ref": "COGENT_QUOTE_2026_REFUSED",
+  "vendor": "Demo Vendor B",
+  "commercial_use": "permitted",
+  "automated_processing": "permitted",
+  "model_training_on_customer_data": "allowed without opt-out",
+  "recurring_subscription": "monthly automatic renewal",
+  "note": "Illustrative fixture only. No vendor identity or current deployment is implied."
+}

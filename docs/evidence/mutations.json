@@ -1,0 +1,65 @@
+[
+  {
+    "mutant": "agent_authority",
+    "test": "test_freeze_funds_and_identity",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "vendor_signature",
+    "test": "test_vendor_signature_required",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "vendor_independence",
+    "test": "test_vendor_cannot_be_principal_or_agent",
+    "status": "KILLED",
+    "failures": 2,
+    "errors": 0
+  },
+  {
+    "mutant": "purchase_cap",
+    "test": "test_purchase_cap_and_source_enforced",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "vendor_cap",
+    "test": "test_concurrent_caps_and_release",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "offer_replay",
+    "test": "test_agent_reserve_vendor_accept_and_replay",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "bond_exactness",
+    "test": "test_wrong_bond_credited_back",
+    "status": "KILLED",
+    "failures": 3,
+    "errors": 0
+  },
+  {
+    "mutant": "closed_refund",
+    "test": "test_closed_mandate_late_reservation_refund",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "terminal_review",
+    "test": "test_terminal_recovery_cannot_reopen_or_release_twice",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  }
+]

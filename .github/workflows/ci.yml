@@ -1,0 +1,42 @@
+name: Cogent CI
+on:
+  push:
+  pull_request:
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    env:
+      GENVM_VERSION: v0.2.12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - run: python3 -m pip install -r requirements-dev.txt
+      - run: python3 scripts/preflight.py
+      - run: genvm-lint check contracts/cogent.py
+      - run: genvm-lint validate contracts/cogent.py
+      - run: genvm-lint schema contracts/cogent.py
+      - run: genvm-lint typecheck contracts/cogent.py
+      - run: python3 -m pytest tests/unit tests/direct -q
+      - run: python3 scripts/mutation_test.py
+  web:
+    runs-on: ubuntu-latest
+    defaults: {run: {working-directory: frontend}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
+  security-hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          if git grep -nE 'redeem\.browser\.key|generatePrivateKey|BEGIN PRIVATE KEY|ACCOUNT_PRIVATE_KEY=[0-9a-fA-F]{64}' -- ':!*.md'; then
+            echo 'Potential private-key material found' >&2; exit 1
+          fi
+          echo 'No flagged private-key pattern'
