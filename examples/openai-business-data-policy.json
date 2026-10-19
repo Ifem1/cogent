@@ -1,0 +1,9 @@
+{
+  "offer_ref": "business",
+  "vendor": "OpenAI",
+  "document_title": "How your data is used to improve model performance",
+  "source_url": "https://openai.com/policies/how-your-data-is-used-to-improve-model-performance/",
+  "source_updated": "2026-03-13",
+  "retrieved_at": "2026-10-19",
+  "excerpt": "By default, we do not train on any inputs or outputs from our products for business users, including ChatGPT Team, ChatGPT Enterprise, and the API."
+}
