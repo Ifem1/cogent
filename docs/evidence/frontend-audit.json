@@ -1,5 +1,5 @@
 {
-  "status": "completed_with_unpatched_dev_advisory",
+  "status": "reviewed_with_accepted_dev_advisory",
   "command": "npm audit --json",
   "date": "2026-10-19",
   "result": {
@@ -20,5 +20,17 @@
     }
   },
   "lockfile": "frontend/package-lock.json",
-  "advisory": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm"
+  "advisory": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+  "risk_review": {
+    "decision": "accepted_for_this_submission",
+    "reviewed_on": "2026-10-19",
+    "scope": "Development-only ESLint dependency; not installed in production dependency set",
+    "exposure": "Cogent runtime does not pass user-controlled glob patterns to braces. The dependency is used by Next ESLint file discovery in CI/developer lint.",
+    "basis": "GitHub rates the advisory high and lists no patched release. The braces maintainer disputes the reported exploitability and states the existing maxLength limit bounds the cited nesting. The advisory remains visible in full-tree npm audit and is not suppressed.",
+    "controls": [
+      "Production dependency audit has zero findings.",
+      "Do not run lint on attacker-controlled filesystem content or arbitrary patterns.",
+      "Revisit this acceptance when upstream publishes a patched release or authoritative advisory update."
+    ]
+  }
 }
