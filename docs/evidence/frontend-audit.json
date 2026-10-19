@@ -1,7 +1,24 @@
 {
-  "status": "unavailable",
+  "status": "completed_with_unpatched_dev_advisory",
   "command": "npm audit --json",
   "date": "2026-10-19",
-  "reason": "The npm registry security audit endpoint could not be reached from this environment. No vulnerability count is inferred from this failed request.",
-  "lockfile": "frontend/package-lock.json"
+  "result": {
+    "full_tree": {
+      "high": 5,
+      "critical": 0,
+      "finding_count": 5,
+      "root_advisory": "GHSA-vfj7-8cjw-p6xm",
+      "affected_package": "braces@3.0.3",
+      "dependency_path": "eslint-config-next > @next/eslint-plugin-next > fast-glob > micromatch > braces",
+      "patched_release_available": false,
+      "fix_available": "npm proposes a breaking downgrade to eslint-config-next@14.2.35; not applied"
+    },
+    "production_only": {
+      "command": "npm audit --omit=dev --audit-level=high",
+      "high": 0,
+      "result": "passed"
+    }
+  },
+  "lockfile": "frontend/package-lock.json",
+  "advisory": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm"
 }
