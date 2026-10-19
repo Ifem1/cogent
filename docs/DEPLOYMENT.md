@@ -22,4 +22,4 @@ Install repository-local CLI `genlayer@0.39.1`. Verify configured network and us
 
 Set Vercel env `NEXT_PUBLIC_COGENT_CONTRACT=<actual deployed address>`; redeploy frontend manually. Remove GitHub auto-deploy connection if required by the deployment workflow. Verify public chain reads and injected wallet writes before marking ready.
 
-The read-only auditor `frontend/scripts/verify-live.mjs` checks contract-level accounting without a wallet; wallet-based lifecycle scripts should use existing explicitly authorised CLI wallet identities, not committed keys.
+The read-only auditor `frontend/scripts/verify-live.mjs` checks contract-level accounting without a wallet; wallet-based lifecycle scripts should use locally imported, explicitly authorised CLI wallet identities, not committed keys. Keys pasted into the Codex conversation must be treated as exposed and rotated before any deployment or test transactions.
