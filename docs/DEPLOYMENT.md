@@ -1,25 +1,25 @@
 # Canonical deployment record
 
-**Status: NOT DEPLOYED.** To be filled strictly from real CLI output and GenLayer Studio Explorer after the Codex handoff.
+**Status: DEPLOYED TO STUDIONET; LIVE SUBMISSION PROOF INCOMPLETE.** The source-matched contract and production frontend are public. See [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md) for transaction-level evidence and the remaining on-chain blockers.
 
-- Contract source commit SHA: `2b0f06912f6e225af209ce2efffcc89294bfd199`
-- Contract source SHA-256: `6ad15f02bab30fcf6910e8099090d310ee1b3cb8138939c3c7f8bc8622b14a61` (`scripts/preflight.py`)
-- GenVM lint/typecheck: PASSED locally; v0.11.0 / GenVM v0.2.12; see `docs/TESTING.md`
-- Network: Studionet (61999)
+- Repository: [`Ifem1/cogent`](https://github.com/Ifem1/cogent)
+- Contract source commit: `2b0f06912f6e225af209ce2efffcc89294bfd199`
+- Contract source SHA-256: `6ad15f02bab30fcf6910e8099090d310ee1b3cb8138939c3c7f8bc8622b14a61`
+- Network: GenLayer Studionet, chain 61999
 - RPC: `https://studio.genlayer.com/api`
-- Deployed contract address: PENDING
-- Deployment transaction hash: PENDING
-- Consensus result: PENDING
-- Execution result: PENDING
-- Frontend production URL: PENDING
-- Frontend contract address: PENDING
-- Actual production build check: PASSED locally; Next.js 15.5.28; no production deployment has been checked
-- Live proof: PENDING
+- Contract: `0x5E09f5E1b5E0c3c2e1A85aDcC3C0F097f5902d93`
+- Deployment transaction: `0xe5fc6564d85aded41b4234709ca9f22f0a6b564ce31be725775a44fdef6c8887`
+- Deployment status: `FINALIZED`, consensus `MAJORITY_AGREE`, five validator votes agree, GenVM execution `SUCCESS`
+- Local/deployed source hash comparison: PASS; both SHA-256 values above match
+- Production frontend: [`https://frontend-olive-one-18.vercel.app`](https://frontend-olive-one-18.vercel.app)
+- Vercel deployment: [`DmMQrzU1dpCVxBMhtafeZ6rRLnkg`](https://vercel.com/ifem1s-projects/frontend/DmMQrzU1dpCVxBMhtafeZ6rRLnkg), `READY`, production
+- Frontend verification: HTTP 200; served JavaScript includes the contract address above; remote Next.js production build passed
+- Frontend production variable: `NEXT_PUBLIC_COGENT_CONTRACT` points at the deployed contract
 
-## Deploy workflow
+The deployment source was validated with GenVM lint/type checks and Direct Mode before deployment. The production site was built locally and again by Vercel. No Git repository is connected to the Vercel project; this production deployment was uploaded from the local, reviewed frontend directory.
 
-Install repository-local CLI `genlayer@0.39.1`. Verify configured network and use `npx genlayer network set studionet` and `npx genlayer network info`. Never deploy to chain 61997. After GenVM validation and Direct Mode green, deploy `contracts/cogent.py` to `https://studio.genlayer.com/api` through the pinned CLI and record the address, tx and source bytes. Never invent a deployment. If the deployed source changes, deploy a new canonical contract rather than updating docs against old source.
+## Remaining release gate
 
-Set Vercel env `NEXT_PUBLIC_COGENT_CONTRACT=<actual deployed address>`; redeploy frontend manually. Remove GitHub auto-deploy connection if required by the deployment workflow. Verify public chain reads and injected wallet writes before marking ready.
+The canonical mandate funded by the designated principal has a source review transaction whose leader successfully returned `COMPLIANT`, but Studionet remains in `COMMITTING` with zero validator votes. Its review window expired; the contract's `expire_review` recovery transaction is also pending. Do not infer an on-chain verdict or settlement from either hash. Role-correct live challenge outcomes, withdrawals, and settlement readback remain unverified. The application is deployed, but Cogent is not submission-ready until [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md) records those results from finalized transactions.
 
-The read-only auditor `frontend/scripts/verify-live.mjs` checks contract-level accounting without a wallet; wallet-based lifecycle scripts should use locally imported, explicitly authorised CLI wallet identities, not committed keys. Keys pasted into the Codex conversation must be treated as exposed and rotated before any deployment or test transactions.
+Use `frontend/scripts/verify-live.mjs` to compare the deployed source and check exact-wei accounting. Its report is read-only; it is not transaction execution proof. Use `scripts/live-tx.mjs` for authorized local signing where payable GEN is required; it prompts for an encrypted keystore password and never reads a plaintext key from the repository or command line.
