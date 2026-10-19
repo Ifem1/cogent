@@ -3,7 +3,7 @@
   "vendor": "Demo Vendor — controlled mutable test endpoint",
   "commercial_use": "permitted",
   "automated_processing": "permitted",
-  "model_training_on_customer_data": "prohibited",
-  "recurring_subscription": "none",
-  "note": "Controlled reversal fixture. This file is deliberately updated between the primary and challenge reviews; it does not represent a real vendor offer."
+  "model_training_on_customer_data": "allowed without opt-out",
+  "recurring_subscription": "monthly automatic renewal",
+  "note": "Controlled challenge-phase reversal fixture. This file was deliberately changed after the primary review; it does not represent a real vendor offer."
 }
