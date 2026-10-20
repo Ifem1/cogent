@@ -1,27 +1,34 @@
-# Live Studionet proof protocol
+# Cogent/2 live verification
 
-The completed scenarios below document the previous source release. They are historical and do not prove the `cogent/2` contract or updated UI. Use a fresh deployment and preserve new receipts and readbacks before acceptance.
+## Current deployment
 
-## Completed scenarios
+- Network: GenLayer Studionet, chain 61999.
+- Contract: `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6`.
+- Source SHA-256: `1adc3187940d08d566ad238e9121de43412974b3aa17b973c80838a66e2ef919`, matching local and deployed bytes.
+- Deployment receipt and validator votes: [`evidence/cogent-2-deployment.json`](evidence/cogent-2-deployment.json).
+- Latest canonical audit: [`evidence/live-read-audit.json`](evidence/live-read-audit.json), two mandates, two proposals, zero invariant errors, zero pending credits and zero locked bonds.
 
-- Role-correct compliant payment and noncompliant refusal.
-- Both challenge directions with exact 5% bonds; a disclosed controlled-source reversal.
-- Real OpenAI business/API data-use policy excerpt at a public immutable commit URL. The official live host returned `SOURCE_UNAVAILABLE` in GenLayer; this was separately settled as INCONCLUSIVE, while the attributed excerpt review reached COMPLIANT in primary and challenge phases.
-- Review window expiry recorded `CONTESTED`, 10-minute retry spacing, three unavailable-source attempts, and `expire_unresolved` release. A second direct-source proposal confirmed the same bounded behavior.
-- Withdrawals and final exact-wei bond/accounting conservation.
+## Completed funded live cycle
 
-## Reproduction parameters
+The role-separated principal, agent and vendor test accounts ran two offers with a 0.005 GEN mandate cap:
 
-The recovery test used a 0.10 GEN mandate with 0.001 GEN purchase/vendor cap, fixed principal, agent and vendor addresses, and a source URL deliberately returning unavailable content. `expire_review` is eligible only after the 20-minute review window; each retry requires 10 minutes from the last attempt; `expire_unresolved` is eligible after three attempts. The full transaction receipts and timestamps are recorded in `LIVE_VERIFICATION.md`.
+1. A correctly bound one-time offer received a COMPLIANT primary decision. The principal challenged it, the independent challenge review upheld the decision, and the proposal was released.
+2. An offer with the correct reference but an amount one wei above the cap received a NON_COMPLIANT decision. The vendor challenged it, the independent challenge review upheld the refusal, and no purchase amount was paid.
 
-The real vendor source fixture contains an attributed excerpt of 25 words and the original official source URL; it does not present the controlled demo vendor wallet as an OpenAI account.
+Both exact 5% bonds were resolved. Vendor and principal withdrawals were submitted and confirmed only after each recipient's observed balance increased by the exact pending amount. Full transactions, offer bytes/fingerprints, manifests, balance before/after and final accounting are in [`evidence/live-cycle.json`](evidence/live-cycle.json). This is CLI-originated evidence; it is not browser-wallet proof. Failed or stalled outgoing child-transfer recovery was not tested; see [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md).
 
-## Cogent/2 verification still required
+The earlier scenarios in [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md) are retained as historical records for the previous contract. They do not describe this deployment.
 
-1. Deploy the exact `contracts/cogent.py` source and record its SHA-256 and finalized deployment receipt. Run `frontend/scripts/verify-live.mjs` against the new address to compare local and deployed source bytes and check accounting.
-2. Through the browser UI, use distinct wallets to create/fund a mandate, submit a proposal with the complete `cogent.offer.v1` document (see `examples/cogent-offer.v1.json`), accept as the vendor, open review and verify the manifest fingerprints and quote pairs.
-3. Test a same-label/different-source validator mismatch, then separately test a challenge reversal and an unavailable/contested challenge. Confirm an unadjudicated challenge preserves the previous verdict, returns the exact bond, and settles only once.
-4. Trigger a vendor credit withdrawal. Record the finalized parent receipt and the recipient wallet balance before and after. Confirm the withdrawal only after the recipient verifies receipt; assert the pending credit clears and a second withdrawal cannot emit a duplicate transfer.
-5. Publish a final readback with all reservation/bond/credit invariants, the fresh deployment hash, relevant transaction receipts and the source-to-deployment comparison. The user deploys the Vercel frontend after setting the new contract address.
+## Reproducing the funded CLI cycle
 
-The development-only `braces` advisory remains documented in [`evidence/security-advisory-review.md`](evidence/security-advisory-review.md); retain it in any submission.
+Use funded throwaway accounts only. Import each role into an encrypted local GenLayer keystore with `scripts/import-encrypted-wallet.mjs <account-name>`, then run `scripts/run-live-cycle.mjs <contract-address>`. The scripts request sensitive values through masked terminal input and do not take private keys or passwords as command-line arguments. The cycle is resumable with `--resume`; challenge reviews respect the contract's retry interval and may take several minutes. Review the emitted transaction receipts and readback before drawing conclusions.
+
+Run `node frontend/scripts/verify-live.mjs` with `COGENT_CONTRACT` set to the address above to refresh read-only source-hash, accounting, and invariant evidence.
+
+## Remaining acceptance evidence
+
+1. Confirm the Git-connected Vercel project has built the latest GitHub commit with the verified contract address and Studionet chain/RPC settings.
+2. Run the full lifecycle through the deployed browser UI with separate principal, agent, and vendor wallets: funding, proposal, vendor acceptance, review, challenge, settlement, withdrawal and final readback. Preserve browser-originated receipts and recipient balances before/after transfer.
+3. Keep the failed/stalled child-transfer limitation visible. The current contract has no safe on-chain recovery method for that case, and no failed-child live test has been performed.
+
+The development-only `braces` advisory remains documented in [`evidence/security-advisory-review.md`](evidence/security-advisory-review.md).

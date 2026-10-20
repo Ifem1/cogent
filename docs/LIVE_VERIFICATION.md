@@ -1,6 +1,6 @@
 # Studionet live verification
 
-**Historical snapshot: 19 October 2026, 19:29 UTC.** These receipts and the read audit [`evidence/live-read-audit.json`](evidence/live-read-audit.json) describe the previous contract source, before `cogent/2`. They are not deployment or browser-flow evidence for the current reviewer fixes.
+**Historical snapshot: 19 October 2026, 19:29 UTC.** These receipts describe the previous contract source, before `cogent/2`. The matching archived read audit is [`evidence/live-read-audit-2026-10-19.json`](evidence/live-read-audit-2026-10-19.json). They are not deployment or browser-flow evidence for the current reviewer fixes. Current Cogent/2 evidence is in [`DEPLOYMENT.md`](DEPLOYMENT.md) and the current [`evidence/live-read-audit.json`](evidence/live-read-audit.json).
 
 ## Deployment
 
@@ -87,5 +87,5 @@ Unused budget remains spendable in open test mandates: 0.005 GEN in mandate 4, 0
 - GenLayer Direct Mode: 88 passed; 9 deliberate contract mutations killed.
 - Frontend lint, TypeScript, 11 Vitest tests and production build passed; Vercel’s production build passed.
 - GitHub Actions passed, including the public-document fixture commit (`39306008198`). The final handoff documentation commit will run the same CI workflow.
-- Production frontend returns HTTP 200 and serves the verified contract address. Vercel is not Git-connected, so preview-branch configuration is unavailable.
+- At the time of this snapshot, the production frontend returned HTTP 200 and served the verified previous contract address. The frontend was deployed manually because the Vercel project was not Git-connected then; this historical setup statement may not describe the current Vercel integration.
 - The full-tree audit reports five high records from the single dev-only `braces@3.0.3` advisory. The production-only audit is clean and no patched release is listed. This residual risk is explicitly accepted for this submission and remains visible in npm audit; rationale and controls are in [`evidence/security-advisory-review.md`](evidence/security-advisory-review.md).

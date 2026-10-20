@@ -1,6 +1,6 @@
 # Reviewer feedback remediation
 
-The current checkout is the `cogent/2` contract source. Its deployed Studionet contract source hash is verified against this checkout. The previous contract and Vercel site documented in `LIVE_VERIFICATION.md` predate these changes and remain historical evidence only. The user will deploy the updated frontend to Vercel.
+The current checkout is the `cogent/2` contract source. Its deployed Studionet contract source hash is verified against this checkout. The previous contract and Vercel site documented in `LIVE_VERIFICATION.md` predate these changes and remain historical evidence only. The user manages the Git-connected Vercel project; verify the latest GitHub commit is ready before browser testing.
 
 Current local and deployed contract SHA-256: `1adc3187940d08d566ad238e9121de43412974b3aa17b973c80838a66e2ef919`. Contract `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6` is on Studionet chain 61999. [`evidence/cogent-2-deployment.json`](evidence/cogent-2-deployment.json) records the finalized receipt and exact source-hash match. [`evidence/live-cycle.json`](evidence/live-cycle.json) records a finalized compliant challenge and release, a correct-reference/one-wei-amount-mismatch refusal with a successful challenge, exact balance-confirmed withdrawals and zero remaining credits. The final read audit has zero invariant failures.
 
@@ -21,8 +21,8 @@ Frontend checks are `npm run typecheck`, `npm run lint`, `npm run test`, and `np
 
 ## Remaining before reviewer acceptance
 
-1. The user deploys the frontend to Vercel with the verified Studionet contract address.
+1. Confirm Vercel has built the latest GitHub commit with the verified Studionet contract address.
 2. Complete the browser-originated wallet flow through that deployed UI using separate principal, agent and vendor accounts. Capture browser transaction receipts, review/challenge outcomes, withdrawal recipient balances before/after, explicit confirmations and canonical final readback. The funded CLI cycle proves the contract's live behavior but does not substitute for browser-originated evidence.
 
-Repository tests, deployment source verification, live adversarial amount binding, challenge recovery, withdrawal accounting, canonical read audit and local frontend read rendering have been completed. The user asked to handle Vercel deployment.
+Repository tests, deployment source verification, live adversarial amount binding, successful challenge adjudication, successful withdrawal accounting, canonical read audit and local frontend read rendering have been completed. Vercel is Git-connected per the user; browser proof remains to be captured. Failed/stalled child-transfer recovery remains unverified and is documented as a residual limitation.
 

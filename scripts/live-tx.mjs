@@ -84,20 +84,23 @@ const txHash = await client.writeContract({
   value: BigInt(rawValue),
 });
 console.log(`Submitted ${method}: ${txHash}`);
-const receipt = await client.waitForTransactionReceipt({
+await client.waitForTransactionReceipt({
   hash: txHash,
   status: 'FINALIZED',
   interval: 10000,
   retries: 120,
 });
+const receipt = await client.getTransaction({ hash: txHash });
+if (receipt.statusName !== 'FINALIZED') {
+  throw new Error(`Transaction did not finalize (status=${receipt.statusName ?? receipt.status}).`);
+}
 console.log(JSON.stringify({
-  hash: receipt.hash,
-  status: receipt.status_name ?? receipt.status,
-  consensus: receipt.result_name ?? null,
-  value: receipt.value?.toString?.() ?? receipt.value ?? null,
+  hash: receipt.hash ?? txHash,
+  status: receipt.statusName,
+  consensus: receipt.resultName ?? null,
   sender: receipt.from_address ?? receipt.sender ?? null,
   contract: receipt.to_address ?? receipt.recipient ?? null,
-  transactionResult: receipt.result_name ?? null,
+  transactionResult: receipt.txExecutionResultName ?? receipt.txExecutionResult ?? null,
   execution: (receipt.consensus_data?.leader_receipt ?? []).map((item) => ({
     executionResult: item.execution_result ?? null,
     errorCode: item.genvm_result?.error_code ?? null,

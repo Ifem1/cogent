@@ -25,9 +25,11 @@ npm run build
 
 Frontend tests and build are local reproducibility gates. They do not prove wallet interaction or production deployment.
 
-## Live verification still required
+## Current live evidence and remaining checks
 
-Use Studionet chain 61999 and save transaction receipts, deployed source hash, final contract accounting, withdrawal parent receipt and before/after recipient balance evidence. The live plan in `docs/LIVE_TEST_PLAN.md` describes historic tests and must be extended to the `cogent/2` terms schema and pending-withdrawal acknowledgement. Do not infer live consensus or an outbound transfer from a mocked model response, a Direct Mode transfer hook, a transaction hash alone, or a successful local build.
+The current contract is deployed on Studionet chain 61999 at `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6`. The exact deployed/local contract source hash match is recorded in `docs/evidence/cogent-2-deployment.json`. Funded live challenge and withdrawal receipts, balance before/after and terminal accounting are recorded in `docs/evidence/live-cycle.json`; the canonical read audit is `docs/evidence/live-read-audit.json`.
+
+The live cycle used CLI signing. It does not prove the browser-wallet flow, which remains to be run through the user's Vercel deployment. Successful withdrawals were confirmed after exact balance increases. A failed or stalled child transfer has not been tested and has no safe contract-level recovery method; see `docs/WITHDRAWAL_FAILURE_LIMITS.md`. Do not infer live consensus or a successful outbound transfer from a mocked model response, a Direct Mode transfer hook, a transaction hash alone, or a successful local build.
 
 ## Coverage map
 

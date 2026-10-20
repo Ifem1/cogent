@@ -1,36 +1,38 @@
-# Cogent adversarial threat model
+# Cogent threat model and verification status
 
-This is a pre-deployment threat model. Entries marked **NEEDS LIVE PROOF** are not yet evidenced on chain.
+This model describes the deployed Cogent/2 contract on Studionet chain 61999. Direct Mode tests establish contract behavior under controlled inputs; they do not establish live validator consensus. Current deployment and live transaction evidence is in [`DEPLOYMENT.md`](DEPLOYMENT.md), [`evidence/cogent-2-deployment.json`](evidence/cogent-2-deployment.json), [`evidence/live-cycle.json`](evidence/live-cycle.json), and [`evidence/live-read-audit.json`](evidence/live-read-audit.json). The prior source's transactions are retained separately in [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md).
 
-| ID | Attack | Designed defence | Required verification |
+| ID | Threat | Control | Verification status |
 | --- | --- | --- | --- |
-| T1 | Agent proposes purchase above owner cap | Mandatory per-purchase and available budget checks | Direct sender/payment tests |
-| T2 | Agent splits payments to same vendor | Cumulative per-vendor committed cap | Competing proposal and failed reservation tests |
-| T3 | Agent redirects vendor payment to own address | Agent and principal prohibited as direct vendor; vendor address signs proposal | Sender tests, malicious vendor alias/related account limitation |
-| T4 | Vendor offer URL is on spoofed or unrelated host | Principal freezes prefixes; exact URL prefix and ref checks | URL adversarial tests |
-| T5 | Vendor swaps offer after acceptance | Validators independently hash complete bounded bytes and terms; exact source and terms fingerprints must agree | Changed-version validator mismatch test; page content is still mutable between primary and challenge reviews |
-| T6 | Vendor page contains a prompt injection | Distinct untrusted block, constrained label, validator re-evaluation | Live malicious evidence test **NEEDS LIVE PROOF** |
-| T7 | Ambiguous policy triggers paid approval | Only COMPLIANT permits provisional authorization; inconclusive returns reservation | Direct and live scenarios |
-| T8 | Leader returns one decision but validator sees another page or evidence | Exact label, source hash, terms hash, bindings and quote-pair consensus; undetermined cannot pay | Different-page same-label validator disagreement test |
-| T9 | Validator disagreement stalls funds forever | Review request recorded before consensus; permissionless `expire_review`, bounded retries | Live contested request expiry **NEEDS LIVE PROOF** |
-| T10 | Challenge replay or wrong payable amount | Exact 5% bond and one challenge per proposal, invalid payable amount credited back | Direct bond tests |
-| T11 | Principal challenges correct approval to block payment | Bounded unresolved challenge preserves the provisional decision and returns the bond; no merits finding is inferred | Timeout and challenge review recovery tests |
-| T12 | Funds counted twice or stuck after mandate close | Reservation accounting, post-close failure credits principal | Late reservation close tests |
-| T13 | Vendor double withdrawal | One pending transfer at a time; credit persists until beneficiary acknowledgement | Duplicate request, pending accounting and single emission test; live balance evidence remains required |
-| T14 | Replay offer reference | `(mandate, vendor, ref)` immutable unique key | Duplicate proposal tests |
-| T15 | External transfer fails or remains uncertain | Pending entitlement remains recorded; no automatic duplicate send; beneficiary checks wallet balance before acknowledgement | Direct transfer-hook and pending test; failed transfer cannot be independently reconciled by contract, disclosed in release notes |
-| T16 | Failed payable creation traps GEN | Invalid input becomes withdrawable credit | Live invalid payable case **NEEDS LIVE PROOF** |
-| T17 | Contract reads leak secrets | Public URLs must be plain HTTPS without query/userinfo; no confidential content | Strict input tests |
-| T18 | Source contains redirects or points to local addresses | Origin/path allow-list excludes obvious local host targets; redirect behavior remains an explicit limitation | Network-specific redirect probe **NEEDS LIVE PROOF** |
-| T19 | Unlocked admin changes policy | No admin mutator, mandates immutable | ABI search + adversarial tests |
-| T20 | Fake on-chain evidence | Publish exact Cogent/2 deployment hash, finalized receipts and canonical state only after redeployment | **NEEDS LIVE PROOF** for current checkout |
+| T1 | Agent proposes more than the principal's cap | Deterministic per-purchase and available-budget checks | Direct adversarial tests; current live amount-over-cap offer refused |
+| T2 | Agent splits purchases to exceed a vendor cap | Reservations plus cumulative per-vendor committed-value cap | Direct concurrent reservation and accounting tests |
+| T3 | Agent redirects payment to itself or principal | Independent vendor address and vendor-signed acceptance | Direct role/signature tests; related-account collusion remains possible |
+| T4 | Offer URL uses an unrelated host or path | Principal-frozen HTTPS prefixes, normalized path checks and reference binding | Direct URL adversarial tests |
+| T5 | Vendor changes the offer after acceptance | Leader and validators commit to complete bounded source bytes and terms; mismatch fails consensus | Direct changed-version mismatch test; external pages remain mutable between review rounds |
+| T6 | Vendor page contains prompt injection | Evidence treated as untrusted; constrained result schema and exact quotations | No dedicated live prompt-injection scenario is recorded |
+| T7 | Ambiguous policy is treated as approval | Only a determinate COMPLIANT result can authorize provisional settlement | Direct uncertain-result tests; current live compliant and mismatched-amount cases |
+| T8 | Leader and validators use different page versions | Consensus compares decision, source and terms fingerprints, bindings and quotations | Direct same-label/different-source disagreement test; not separately forced in live consensus |
+| T9 | Validator disagreement leaves funds stuck | Review state and permissionless bounded retry/expiry path | Direct recovery tests; current live deployment exercised successful challenged reviews, not an unresolved live validator dispute |
+| T10 | Wrong challenge bond or challenge replay | Exact 5% bond and one challenge per proposal; invalid payable value is credited | Direct tests; current live cycle exercised both challenge directions with exact bonds |
+| T11 | A valid challenge cannot finish before expiry and unfairly loses its bond | Challenge accepted only when a full review window fits; inconclusive result preserves prior decision and returns bond | Direct boundary/timeout tests; current live challenges were adjudicated successfully |
+| T12 | Reservation or mandate-close accounting releases funds twice | Reservations are tracked independently; terminal recovery is one-shot | Direct late-close and replay tests; current live audit reports zero reservations |
+| T13 | Beneficiary emits duplicate withdrawals | One pending withdrawal per beneficiary; credit and liability remain until acknowledgement | Direct single-emission/duplicate-lock test and two successful live balance-confirmed withdrawals |
+| T14 | Offer reference is replayed | `(mandate, vendor, reference)` uniqueness constraint | Direct duplicate proposal test |
+| T15 | Outgoing GEN child transfer fails or stalls | Pending entitlement remains recorded; duplicate send is blocked pending acknowledgement | Successful transfers verified live. Failed/stalled child recovery is untested and has no safe contract-level recovery path; see [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md) |
+| T16 | Invalid payable call traps attached GEN | Rejected payable input becomes a withdrawable credit | Direct test; current Cogent/2 live test did not exercise this path |
+| T17 | Public contract state contains secrets | No secret storage; source URLs require public HTTPS without userinfo/query | Direct URI validation tests; users must never publish private vendor material |
+| T18 | Redirect or local-address fetch bypasses source boundary | URL and host checks reject known invalid targets; runtime redirect handling remains a limitation | Direct URL tests; network-specific redirect behavior not independently probed on Studionet |
+| T19 | Admin changes policy or forces settlement | No mutable owner/admin settlement method; mandate terms are frozen | ABI/static review and Direct Mode authorization tests |
+| T20 | Deployment evidence refers to different source | Exact local and deployed source bytes compared with SHA-256 | Verified on Studionet; deployment receipt and hash are published |
 
 ## Security boundaries
 
-Cogent verifies **published terms against a frozen mandate**, not delivery or legal enforceability. Vendor wallet acceptance does not establish domain ownership. An agent could collude with a vendor, or a vendor could serve different pages to different validators; contested reviews fail closed but cannot prevent a majority being consistently deceived. Bounded web source and prompt sizes reduce but do not eliminate malicious data risks.
+Cogent verifies published offer terms against a frozen spending mandate. It does not prove domain ownership, vendor legal identity, service quality or future delivery. A vendor wallet can collude with an agent; a majority of validators can still be deceived by consistently misleading evidence. Bounded source size, exact purchase fields and supporting quotations reduce these risks but cannot eliminate semantic or real-world uncertainty.
 
 ## Financial invariants
 
-For every mandate: `funded = available + reserved + paid + refunded`.
-For valid bonds: `received = locked + returned + forfeited`.
-Never use JavaScript floating point to handle wei. A successful transaction hash alone is not a success certificate.
+For each mandate: `funded = available + reserved + paid + refunded`.
+
+For valid challenge bonds: `received = locked + returned + forfeited`.
+
+All money is represented in integer wei. A transaction hash or parent finality alone does not prove that an asynchronous outgoing transfer reached the recipient.

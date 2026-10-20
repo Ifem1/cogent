@@ -6,7 +6,7 @@
 
 Cogent is an escrow-backed spending-authority primitive for autonomous purchasing agents built for **GenLayer Studionet (chain 61999)**. A principal funds an immutable mandate, appoints a spending agent, fixes a human-readable compliance policy and allowed public offer sources, and imposes numeric budget limits. The agent proposes a specific purchase. The vendor accepts it with its own address. Independent GenLayer validators retrieve the vendor offer, check it against the frozen policy and agree on a constrained label. Only the Intelligent Contract decides whether locked funds become vendor credits or return to the mandate. A bounded challenge can trigger independent reevaluation.
 
-**This checkout contains the Cogent/2 reviewer remediation. It must be deployed as a new contract before these rules are active on Studionet.** The existing deployment and its historic receipts refer to older source. The Vercel site is user-managed; the user will deploy the updated frontend.
+**Cogent/2 is deployed and source-verified on Studionet.** Contract `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6` runs on chain 61999 and matches this checkout's contract-source SHA-256, `1adc3187940d08d566ad238e9121de43412974b3aa17b973c80838a66e2ef919`. The user manages Vercel and the browser-originated acceptance flow. The previous deployment and receipts in `docs/LIVE_VERIFICATION.md` refer to older source.
 
 ## What it solves
 
@@ -98,11 +98,11 @@ Rejected payable calls create withdrawable credits and are tracked separately. V
 | SDK (frontend) | `genlayer-js@1.1.8` |
 | Wallet | External injected EIP-1193, no application-managed keys |
 | Frontend | Next.js App Router, TypeScript, custom responsive design |
-| Previous contract deployment | `0x5E09f5E1b5E0c3c2e1A85aDcC3C0F097f5902d93` (older source; not Cogent/2) |
-| Updated contract deployment | Required; do not use the previous address as proof for Cogent/2 |
-| Vercel | User deploys the updated frontend |
+| Current Cogent/2 contract | `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6` (source hash verified; see [`deployment evidence`](docs/evidence/cogent-2-deployment.json)) |
+| Previous contract deployment | `0x5E09f5E1b5E0c3c2e1A85aDcC3C0F097f5902d93` (older source; historical only) |
+| Vercel | Git-connected and user-managed; confirm latest commit deployment before browser testing |
 
-See [`docs/REVIEW_REMEDIATION.md`](docs/REVIEW_REMEDIATION.md) for the corrected scope, passing checks, and steps that still require a fresh contract deployment and browser-originated live verification. Historical transactions remain recorded in [`docs/LIVE_VERIFICATION.md`](docs/LIVE_VERIFICATION.md) and refer to the previous contract.
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for finalized deployment and live-cycle evidence, [`docs/REVIEW_REMEDIATION.md`](docs/REVIEW_REMEDIATION.md) for reviewer status, and [`docs/WITHDRAWAL_FAILURE_LIMITS.md`](docs/WITHDRAWAL_FAILURE_LIMITS.md) for the disclosed transfer-failure limitation. Browser-originated verification through the deployed Vercel UI remains outstanding. Historical transactions remain recorded in [`docs/LIVE_VERIFICATION.md`](docs/LIVE_VERIFICATION.md) and refer to the previous contract.
 
 The web app reads final state without requiring a wallet, presents mandate/proposal IDs and status, converts GEN to wei exactly with Viem, and only offers actions permitted by current state, connected wallet role and network. Wallet writes are checked against the active Studionet account and chain and validate finalized execution. Withdrawal confirmation is an explicit beneficiary attestation after checking their external wallet balance; the contract cannot independently prove that the external payment arrived.
 
@@ -134,10 +134,10 @@ Both the root GenLayer CLI and frontend dependencies are pinned with npm lockfil
 
 ## Tests and evidence
 
-- Contract Direct Mode, frontend, and lint checks for the current checkout are recorded in [`docs/REVIEW_REMEDIATION.md`](docs/REVIEW_REMEDIATION.md). Historic live verification is not evidence for Cogent/2.
-- A new source hash, deployment receipt, browser-originated flow and final canonical readback are required after redeployment. No Vercel deployment is performed by this repository workflow.
+- Contract Direct Mode, frontend, deployment-hash and live-cycle evidence for Cogent/2 are recorded in [`docs/TESTING.md`](docs/TESTING.md), [`docs/evidence/cogent-2-deployment.json`](docs/evidence/cogent-2-deployment.json), and [`docs/evidence/live-cycle.json`](docs/evidence/live-cycle.json). Historic live verification is labeled separately and is not evidence for Cogent/2.
+- The remaining acceptance proof is the complete browser-originated wallet flow through the user's Vercel deployment, with receipts and final readback. Vercel deployment is managed by the user.
 
-The final Codex handoff requires the critical happy and adversarial Direct Mode flows, two roles and real live wallet executions, immutable public offer fixtures, withdrawn credits, accounting conservation, and a verified deployment report before calling Cogent submission-ready.
+The core contract, direct adversarial tests, source-matched Studionet deployment, challenged live scenarios, successful withdrawals and final accounting audit are verified. Do not call the submission fully evidenced until the browser-originated Vercel flow is captured; failed or stalled outgoing-transfer recovery remains an acknowledged runtime limitation.
 
 See [Testing](docs/TESTING.md), [Reviewer matrix](docs/REVIEWER_MATRIX.md) and [Deployment](docs/DEPLOYMENT.md).
 

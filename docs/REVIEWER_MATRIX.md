@@ -1,17 +1,17 @@
-# Steward reviewer matrix
+# Reviewer evidence matrix
 
-The evidence below is from the previous source release. It remains historical and must not be used as proof for the current `cogent/2` checkout until its new contract and frontend are deployed and verified.
+This matrix describes the current `cogent/2` source and its Studionet deployment. Historical transactions for the previous release are labeled separately in [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md).
 
-The matrix records evidence, not predicted scores.
+| Review area | Current implementation and evidence | Status |
+| --- | --- | --- |
+| GenLayer fit | Independent bounded source retrieval, semantic review, exact source/terms fingerprints and supporting quotations; Direct Mode coverage and current live manifests in [`evidence/live-cycle.json`](evidence/live-cycle.json) | Implemented and live exercised for compliant and purchase-binding refusal cases |
+| Contract safety | Immutable funded mandate, reservations, vendor consent, exact purchase caps, challenge bonds and deterministic settlement; 97 tests and 13 selected mutants killed | Local tests pass; current live challenged settlement evidence published |
+| Source equivalence | Deployment receipt compares exact local and on-chain contract source SHA-256 in [`evidence/cogent-2-deployment.json`](evidence/cogent-2-deployment.json) | Verified on Studionet |
+| Challenge fairness | Complete review window required before accepting a challenge; inconclusive challenge returns the bond and preserves the prior consensus-backed result. Direct tests cover timing and technical recovery; current live cycle includes both challenge directions | Implemented and tested; unresolved technical fallback is Direct Mode tested |
+| Purchase authenticity | Structured `cogent.offer.v1` binds reference, vendor, amount, product and terms. Direct adversarial tests cover mismatched fields; current live cycle proves a one-wei amount mismatch is refused | Implemented and adversarially tested |
+| Financial accounting | Current live audit records zero locked bonds, owed credits, refused payable value and invariant errors | Verified after successful withdrawals |
+| Withdrawal failure recovery | Pending credits and liabilities persist; duplicate requests are blocked until explicit beneficiary confirmation. Successful transfers were balance-checked live. Failed/stalled child recovery has no safe on-chain recovery path and has not been tested; see [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md) | Disclosed residual risk; not verified |
+| Frontend | Local frontend renders the live deployment; typecheck, lint, 11 tests and production build pass | Local checks pass; browser-originated wallet flow through deployed Vercel remains outstanding |
+| Operations and security | No application-held keys or admin settlement; authorization is distinct from vendor identity and service delivery. Development-only dependency advisory is retained | Documented |
 
-| Category | Evidence target | Evidence available | Current status |
-| --- | --- | --- | --- |
-| GenLayer fit | Independent external evidence fetch and semantic mandate evaluation with scalar consensus | Direct Mode tests and finalized Studionet primary/challenge reviews against pinned GitHub fixtures and an attributed official vendor policy excerpt | Implemented and live tested; direct OpenAI-host fetch limitation was disclosed and safely resolved as inconclusive |
-| Contract safety | Funded reservations, immutable policy, vendor consent, bonded challenges, deterministic credits | 88 passing tests, 9 killed mutants, finalized role-correct settlements and zero-invariant-failure live audit | Verified, including bounded unresolved expiry |
-| Engineering | Reproducible CI, source matching, accounting invariants, adversarial tests | CI, mutation tests, source-matched deployment and refreshed live audit | Pass; dev-only `braces` advisory explicitly accepted and documented |
-| Frontend | Public chain reads, EIP-1193 actions, role/state gates, responsive screens | Frontend checks, production URL, verified served contract address | Production deployed and checked; preview branches unavailable because Vercel is not Git-connected |
-| Liveness | Bounded recovery for contested or unavailable consensus | Finalized `expire_review` and `expire_unresolved` transactions after three unavailable-source attempts | Live behavior verified; reservations restored and no proposals remain pending |
-| Safety | No application-held key, admin settlement or model-directed payout | Contract, frontend and security-hygiene CI | Source checked; hosted hygiene scan passes |
-| Live proof | Opposite outcomes, both challenge directions, bond conservation and withdrawals | `docs/LIVE_VERIFICATION.md`, `docs/evidence/live-read-audit.json` | All scenarios finalized; all credits withdrawn; audit reports zero accounting errors |
-
-The repository does not assign a score. See `docs/DEPLOYMENT.md` and `docs/HANDOFF_STATUS.md` for the final scope and accepted risk.
+The repository does not assign a score. The user manages Vercel deployment. Acceptance still requires the browser-originated lifecycle and a clear acknowledgement of the outgoing-transfer failure limitation.

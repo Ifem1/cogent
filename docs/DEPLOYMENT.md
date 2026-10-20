@@ -23,7 +23,7 @@ Both observed withdrawals succeeded; failed-child recovery was not tested. The c
 
 ## User deployment handoff
 
-The user handles Vercel deployment. Set the frontend's public contract address to `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6` and use Studionet chain 61999 / RPC `https://studio.genlayer.com/api`. After publishing, the remaining reviewer evidence is a browser-originated workflow on that deployment: connect the separate wallets, perform the lifecycle actions, capture transaction receipts and withdrawal balance before/after, then confirm withdrawals and record canonical final state. Do not present the existing CLI transactions as browser-originated evidence.
+The user manages the Git-connected Vercel project. The frontend must use contract `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6` and Studionet chain 61999 / RPC `https://studio.genlayer.com/api`. Confirm Vercel has built the latest GitHub commit. The remaining reviewer evidence is a browser-originated workflow on that deployment: connect the separate wallets, perform the lifecycle actions, capture transaction receipts and withdrawal balance before/after, then confirm withdrawals and record canonical final state. Do not present the existing CLI transactions as browser-originated evidence.
 
 The previous Studionet contract and Vercel site predate Cogent/2 and are retained in [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md) as historical evidence only.
 
