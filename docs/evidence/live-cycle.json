@@ -1,0 +1,715 @@
+{
+  "network": "GenLayer Studionet",
+  "chainId": 61999,
+  "contractAddress": "0x3dC948C81F48E882d59573a9f57464F16B9f2fB6",
+  "roles": {
+    "principal": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+    "agent": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+    "vendor": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04"
+  },
+  "amountWei": "5000000000000000",
+  "bondWei": "250000000000000",
+  "policy": "Only one-time purchases are permitted overall.",
+  "sourcePrefix": "https://httpbin.org/base64/",
+  "transactions": [
+    {
+      "phase": "fund mandate",
+      "role": "principal",
+      "method": "create_mandate",
+      "hash": "0xd42d487ebc362a5083936ecaf77d84ff796d968dbf4ceeb0a05423a230df6dc8",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "idle",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "idle"
+      },
+      "execution": [
+        "SUCCESS",
+        "ERROR"
+      ]
+    },
+    {
+      "phase": "compliant propose",
+      "role": "agent",
+      "method": "propose",
+      "hash": "0x11048b16ffaabbecb66309ce5f391c63fc405b7c6988e3c993e0ace872d8e958",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "compliant vendor accept",
+      "role": "vendor",
+      "method": "accept_offer",
+      "hash": "0x08a2888e6915f125a5541538d15ee1d36e6dd7f390d9fc321c1200edf98e6e88",
+      "sender": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "status": "FINALIZED",
+      "votes": {
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "idle",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "idle"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "compliant request primary review",
+      "role": "principal",
+      "method": "request_review",
+      "hash": "0xcce3e931a3e871eeea47ebcd48a53593870c8e44f852d334cb8df5863ec3ecc9",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "compliant observe primary review",
+      "role": "principal",
+      "method": "observe_review",
+      "hash": "0x2dbd815312b01af8783bcbb61995c1925c5c7d36ee030811e4f9bc8e6a4a9b72",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "idle",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "principal posts exact 5% challenge",
+      "role": "principal",
+      "method": "challenge",
+      "hash": "0xa7a5bdc8f214c0f7f4ccd8b2af87aa869f82cf2abc59703ef559a1ab56d357b0",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "idle"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "request challenge review",
+      "role": "agent",
+      "method": "request_review",
+      "hash": "0x68a839cdec1833375b9be3cc4b72bed162934728ab3c8d167ee37feda8b1aa59",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "idle",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      },
+      "execution": [
+        {
+          "result": "ERROR",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "request challenge review after retry interval",
+      "role": "agent",
+      "method": "request_review",
+      "hash": "0xa350e5d83fba32a41f67b0c6dbf2ecf66bdd5eaa42a657d38c139a150d4421c6",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "observe challenge review",
+      "role": "agent",
+      "method": "observe_review",
+      "hash": "0x14b114fb8d09185fd4e17f72eb57dc1f53ab061fb695147039dfde8f9ce338d6",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "idle",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "mismatchedAmount propose",
+      "role": "agent",
+      "method": "propose",
+      "hash": "0x67b01634ce692cd0c85410f9078171f49655dfd11320d028f1b7f969377ea71f",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "mismatchedAmount vendor accept",
+      "role": "vendor",
+      "method": "accept_offer",
+      "hash": "0x9a02aaf0896aade02ba32abdf3b8d4203d53fd773245d361884945e7bc1b2a64",
+      "sender": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "mismatchedAmount request primary review",
+      "role": "principal",
+      "method": "request_review",
+      "hash": "0xc6883231a89ff15180fa44beda5a8896cd89346b27c9dcc03259aed19b940cb1",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "mismatchedAmount observe primary review",
+      "role": "principal",
+      "method": "observe_review",
+      "hash": "0x5fbb7455090da5d765f548f2a829b5aec296ff57dbc399f3726a0fc2065f375b",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "vendor posts exact 5% challenge to mismatch refusal",
+      "role": "vendor",
+      "method": "challenge",
+      "hash": "0x427e6fd5b1727040c0bbb07c147364efeb93bddef158208d1e024cc305c65719",
+      "sender": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "idle",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "idle",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "request mismatch challenge review after retry interval",
+      "role": "agent",
+      "method": "request_review",
+      "hash": "0x89875e6ae3d409bd2984e7dcfcabbf7be804029bef358cff870d94f496640009",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "idle",
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "idle",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "observe mismatch challenge review",
+      "role": "agent",
+      "method": "observe_review",
+      "hash": "0x42fbf7d28d0ba358f3c0faee224e12a13279f73f2fc47f3024f6e5ebc9edd692",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "vendor withdraw",
+      "role": "vendor",
+      "method": "withdraw",
+      "hash": "0x783d84444bb61a8d4e447925db1733643b15eaacfc1ade319704f741df977e7e",
+      "sender": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "vendor confirm externally observed withdrawal",
+      "role": "vendor",
+      "method": "confirm_withdrawal",
+      "hash": "0x74ba3fb138345f05befe998ab1bceed2dcc54609c8a8e4086cab723d6067b364",
+      "sender": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "idle",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "principal withdraw",
+      "role": "principal",
+      "method": "withdraw",
+      "hash": "0x26c81ccf9d8afca77de96c63cff546b8153f4167505fc4f19b383b661ef00968",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "idle",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "principal confirm externally observed withdrawal",
+      "role": "principal",
+      "method": "confirm_withdrawal",
+      "hash": "0xa674c01d0130a7bf8a50556d7da9fc50a6eebae79f00a31fa63af0c2a28c5e03",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "idle",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "idle"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    }
+  ],
+  "startedAt": "2026-10-20T21:06:09.878Z",
+  "offers": [
+    {
+      "expected": {
+        "schema": "cogent.offer.v1",
+        "reference": "CGT2026A",
+        "vendor_address": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+        "amount_wei": "5000000000000000",
+        "product": "Cogent",
+        "commercial_terms": "One-time purchase."
+      },
+      "url": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QSIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDAiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6Ik9uZS10aW1lIHB1cmNoYXNlLiJ9",
+      "sourceSha256": "4a10731bb1b6ea4db049e4eb541f72ae23bb3f1354a5b40e7f30a506ecd0df98"
+    },
+    {
+      "expected": {
+        "schema": "cogent.offer.v1",
+        "reference": "CGT2026B",
+        "vendor_address": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+        "amount_wei": "5000000000000000",
+        "product": "Cogent",
+        "commercial_terms": "One-time purchase."
+      },
+      "fetched": {
+        "schema": "cogent.offer.v1",
+        "reference": "CGT2026B",
+        "vendor_address": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+        "amount_wei": "5000000000000001",
+        "product": "Cogent",
+        "commercial_terms": "One-time purchase."
+      },
+      "url": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QiIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDEiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6Ik9uZS10aW1lIHB1cmNoYXNlLiJ9",
+      "sourceSha256": "3f06673cddb66723ffad0b986f42cddec2e5944f4bd75e31651294f3726da3a5",
+      "adversarialCase": "correct reference but mismatched amount"
+    }
+  ],
+  "mandateId": 2,
+  "compliantProposalId": 1,
+  "compliantPrimary": {
+    "status": "COMPLIANT",
+    "manifest": {
+      "at": 1792530636,
+      "bindings_valid": true,
+      "label": "COMPLIANT",
+      "phase": "PRIMARY",
+      "round": 1,
+      "source": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QSIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDAiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6Ik9uZS10aW1lIHB1cmNoYXNlLiJ9",
+      "source_sha256": "4a10731bb1b6ea4db049e4eb541f72ae23bb3f1354a5b40e7f30a506ecd0df98",
+      "supporting_clauses": [
+        {
+          "offer_clause": "One-time purchase.",
+          "policy_clause": "Only one-time purchases are permitted overall."
+        }
+      ],
+      "terms_sha256": "6f9d771c85766aa6fa6b865e74718d40882b102750aea72b22913cdb9c830ce4"
+    },
+    "currentProposalStatus": "CHALLENGED"
+  },
+  "compliantFinal": {
+    "status": "RELEASED",
+    "finalCode": "COMPLIANT",
+    "challengeOutcome": "UPHELD",
+    "challengeManifest": {
+      "at": 1792531267,
+      "bindings_valid": true,
+      "label": "COMPLIANT",
+      "phase": "CHALLENGE",
+      "round": 2,
+      "source": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QSIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDAiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6Ik9uZS10aW1lIHB1cmNoYXNlLiJ9",
+      "source_sha256": "4a10731bb1b6ea4db049e4eb541f72ae23bb3f1354a5b40e7f30a506ecd0df98",
+      "supporting_clauses": [
+        {
+          "offer_clause": "One-time purchase.",
+          "policy_clause": "Only one-time purchases are permitted overall."
+        }
+      ],
+      "terms_sha256": "6f9d771c85766aa6fa6b865e74718d40882b102750aea72b22913cdb9c830ce4"
+    }
+  },
+  "mismatchedAmountProposalId": 2,
+  "mismatchedAmountPrimary": {
+    "status": "NON_COMPLIANT",
+    "manifest": {
+      "at": 1792531449,
+      "bindings_valid": false,
+      "label": "NON_COMPLIANT",
+      "phase": "PRIMARY",
+      "round": 1,
+      "source": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QiIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDEiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6Ik9uZS10aW1lIHB1cmNoYXNlLiJ9",
+      "source_sha256": "3f06673cddb66723ffad0b986f42cddec2e5944f4bd75e31651294f3726da3a5",
+      "supporting_clauses": [],
+      "terms_sha256": "906148f0b7b7f5117dcb797e06984512eef87e65dc36af1709563e93c97a4847"
+    },
+    "currentProposalStatus": "PROVISIONAL_NON_COMPLIANT"
+  },
+  "mismatchFinal": {
+    "status": "REFUSED",
+    "finalCode": "NON_COMPLIANT",
+    "challengeOutcome": "UPHELD",
+    "challengeManifest": {
+      "at": 1792532081,
+      "bindings_valid": false,
+      "label": "NON_COMPLIANT",
+      "phase": "CHALLENGE",
+      "round": 2,
+      "source": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QiIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDEiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6Ik9uZS10aW1lIHB1cmNoYXNlLiJ9",
+      "source_sha256": "3f06673cddb66723ffad0b986f42cddec2e5944f4bd75e31651294f3726da3a5",
+      "supporting_clauses": [],
+      "terms_sha256": "906148f0b7b7f5117dcb797e06984512eef87e65dc36af1709563e93c97a4847"
+    }
+  },
+  "withdrawals": [
+    {
+      "role": "vendor",
+      "address": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "owed": "5250000000000000",
+      "pending": "5250000000000000",
+      "balanceBefore": "1009807750000000000000",
+      "balanceAfter": "1009813000000000000000",
+      "balanceIncrease": "5250000000000000",
+      "confirmed": true
+    },
+    {
+      "role": "principal",
+      "address": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "owed": "250000000000000",
+      "pending": "250000000000000",
+      "balanceBefore": "953704009999999999791",
+      "balanceAfter": "953704259999999999791",
+      "balanceIncrease": "250000000000000",
+      "confirmed": true
+    }
+  ],
+  "finalMandate": {
+    "agent": "0x6b476bf35c4968f3f1775c0ca2110591b4b5fcbe",
+    "available": "95000000000000000",
+    "closed": false,
+    "created_at": 1792530374,
+    "expires_at": 1793135173,
+    "funded": "100000000000000000",
+    "id": 2,
+    "owner": "0x39680bd423437c0eaa18493629652821ec672c61",
+    "paid": "5000000000000000",
+    "per_purchase_cap": "5000000000000000",
+    "per_vendor_cap": "50000000000000000",
+    "policy": "Only one-time purchases are permitted overall.",
+    "refunded": "0",
+    "reserved": "0",
+    "sources": [
+      "https://httpbin.org/base64/"
+    ],
+    "title": "Cogent Review Live Cycle"
+  },
+  "finalAccounting": {
+    "bonds_forfeited": "500000000000000",
+    "bonds_locked": "0",
+    "bonds_received": "500000000000000",
+    "bonds_returned": "0",
+    "mandates": 2,
+    "owed": "0",
+    "proposals": 2,
+    "refused_payable_value": "0",
+    "release": "cogent/2"
+  },
+  "finalPrincipalCredit": "0",
+  "finalVendorCredit": "0",
+  "completedAt": "2026-10-20T21:38:31.494Z"
+}

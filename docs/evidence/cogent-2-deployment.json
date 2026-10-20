@@ -1,0 +1,22 @@
+{
+  "network": "GenLayer Studionet",
+  "chainId": 61999,
+  "contractAddress": "0x3dC948C81F48E882d59573a9f57464F16B9f2fB6",
+  "deploymentTransactionHash": "0x3ec5bda2617f3cf20366d608e5e2f8139ce51842b060a5b1af1194ca665c5fdc",
+  "status": "FINALIZED",
+  "transactionResult": 6,
+  "executionResult": null,
+  "deployer": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+  "validatorVotes": {
+    "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+    "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "agree",
+    "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+    "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+    "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree"
+  },
+  "validatorVoteCount": 5,
+  "localSourceSha256": "1adc3187940d08d566ad238e9121de43412974b3aa17b973c80838a66e2ef919",
+  "deployedSourceSha256": "1adc3187940d08d566ad238e9121de43412974b3aa17b973c80838a66e2ef919",
+  "sourceMatches": true,
+  "verifiedAt": "2026-10-20T21:01:28.199Z"
+}
