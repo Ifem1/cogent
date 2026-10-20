@@ -1,15 +1,15 @@
 # Test plan and current results
 
-## Executed locally
+## Current checkout
 
-- `GENVM_VERSION=v0.2.12 python -m pytest -q`: **88 passed** (unit helpers and GenLayer Direct Mode VM contract tests).
-- `genvm-lint check contracts/cogent.py`: **3 lint checks passed**.
-- `genvm-lint validate contracts/cogent.py`: passed; 20 contract methods, 7 views and 13 writes.
-- `genvm-lint schema contracts/cogent.py`: passed.
-- `genvm-lint typecheck contracts/cogent.py`: passed, no type errors.
-- `python scripts/mutation_test.py`: all **9** selected contract mutants were killed by targeted tests. Results are in `docs/evidence/mutations.json`.
+- `python -m pytest tests -q -p no:cacheprovider`: **97 passed**, including GenLayer Direct Mode contract execution.
+- `python -m py_compile contracts/cogent.py`: passed.
+- GenVM lint passed (3 checks); `genvm-lint validate` passed (22 methods, 8 views, 14 writes) and schema generation passed against the pinned `v0.2.12` runner. The default `genvm-lint check` wrapper still reports a cache permission error after its lint phase in this Windows environment.
+- `genvm-lint typecheck contracts/cogent.py`: not verified. This Windows environment's Pyright integration reports that its own `genlayer` imports are unresolved, even though contract validation and Direct Mode execution pass.
+- Frontend `npm run typecheck`, `npm run lint`, `npm run test` (**11 passed**) and `npm run build`: passed.
+- `python scripts/mutation_test.py`: all **13** selected mutants were killed, including the new amount-binding, source-fingerprint, unresolved-challenge-refund and duplicate-withdrawal cases. Results are in `docs/evidence/mutations.json`.
 
-The withdrawal test checks the actual GenLayer VM transfer message and accounting. It does not claim a live external GEN transfer. Nondeterministic review tests use controlled external fetch/model responses within Direct Mode; they establish contract behavior, not live validator consensus.
+The withdrawal test checks the actual GenLayer VM transfer message, retained pending credit, duplicate-send lock and explicit acknowledgement. It does not claim a live external GEN transfer or a failed child recovery. Nondeterministic review tests use controlled external fetch/model responses within Direct Mode; they establish contract behavior, not live validator consensus.
 
 ## Frontend checks
 
@@ -27,7 +27,7 @@ Frontend tests and build are local reproducibility gates. They do not prove wall
 
 ## Live verification still required
 
-Use Studionet chain 61999 and save transaction receipts, deployed source hash, final contract accounting and actual withdrawal receipts. The live plan in `docs/LIVE_TEST_PLAN.md` covers compliant and noncompliant purchases, both challenge directions, a failed challenge, expiry/recovery and pull withdrawals. Do not infer live consensus or an outbound transfer from a mocked model response, a Direct Mode transfer hook, a transaction hash alone, or a successful local build.
+Use Studionet chain 61999 and save transaction receipts, deployed source hash, final contract accounting, withdrawal parent receipt and before/after recipient balance evidence. The live plan in `docs/LIVE_TEST_PLAN.md` describes historic tests and must be extended to the `cogent/2` terms schema and pending-withdrawal acknowledgement. Do not infer live consensus or an outbound transfer from a mocked model response, a Direct Mode transfer hook, a transaction hash alone, or a successful local build.
 
 ## Coverage map
 

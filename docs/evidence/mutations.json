@@ -61,5 +61,33 @@
     "status": "KILLED",
     "failures": 1,
     "errors": 0
+  },
+  {
+    "mutant": "offer_amount_binding",
+    "test": "test_offer_must_bind_price_vendor_and_product",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "validator_source_fingerprint",
+    "test": "test_independent_validator_retrieves_again",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "unresolved_challenge_bond_return",
+    "test": "test_unresolved_challenge_returns_bond_and_keeps_prior_decision",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
+  },
+  {
+    "mutant": "withdrawal_duplicate_lock",
+    "test": "test_withdraw_keeps_credit_pending_and_emits_once_until_confirmation",
+    "status": "KILLED",
+    "failures": 1,
+    "errors": 0
   }
 ]

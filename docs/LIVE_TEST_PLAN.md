@@ -1,6 +1,6 @@
-# Live Studionet proof protocol and execution record
+# Live Studionet proof protocol
 
-The protocol below was run on the canonical contract after GenVM checks and Direct Mode. All transaction hashes and final state are in [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md); the canonical readback is [`evidence/live-read-audit.json`](evidence/live-read-audit.json).
+The completed scenarios below document the previous source release. They are historical and do not prove the `cogent/2` contract or updated UI. Use a fresh deployment and preserve new receipts and readbacks before acceptance.
 
 ## Completed scenarios
 
@@ -16,6 +16,12 @@ The recovery test used a 0.10 GEN mandate with 0.001 GEN purchase/vendor cap, fi
 
 The real vendor source fixture contains an attributed excerpt of 25 words and the original official source URL; it does not present the controlled demo vendor wallet as an OpenAI account.
 
-## Submission gate
+## Cogent/2 verification still required
 
-The final deployment, source match, local and hosted checks, live scenarios, terminal states, withdrawal, and canonical read audit have passed. The dev-only unpatched `braces` advisory was accepted in [`evidence/security-advisory-review.md`](evidence/security-advisory-review.md), with production dependencies clean and the full-tree finding still visible.
+1. Deploy the exact `contracts/cogent.py` source and record its SHA-256 and finalized deployment receipt. Run `frontend/scripts/verify-live.mjs` against the new address to compare local and deployed source bytes and check accounting.
+2. Through the browser UI, use distinct wallets to create/fund a mandate, submit a proposal with the complete `cogent.offer.v1` document (see `examples/cogent-offer.v1.json`), accept as the vendor, open review and verify the manifest fingerprints and quote pairs.
+3. Test a same-label/different-source validator mismatch, then separately test a challenge reversal and an unavailable/contested challenge. Confirm an unadjudicated challenge preserves the previous verdict, returns the exact bond, and settles only once.
+4. Trigger a vendor credit withdrawal. Record the finalized parent receipt and the recipient wallet balance before and after. Confirm the withdrawal only after the recipient verifies receipt; assert the pending credit clears and a second withdrawal cannot emit a duplicate transfer.
+5. Publish a final readback with all reservation/bond/credit invariants, the fresh deployment hash, relevant transaction receipts and the source-to-deployment comparison. The user deploys the Vercel frontend after setting the new contract address.
+
+The development-only `braces` advisory remains documented in [`evidence/security-advisory-review.md`](evidence/security-advisory-review.md); retain it in any submission.

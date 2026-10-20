@@ -1,5 +1,7 @@
 # Steward reviewer matrix
 
+The evidence below is from the previous source release. It remains historical and must not be used as proof for the current `cogent/2` checkout until its new contract and frontend are deployed and verified.
+
 The matrix records evidence, not predicted scores.
 
 | Category | Evidence target | Evidence available | Current status |

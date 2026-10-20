@@ -22,7 +22,7 @@ Separately, challenge bonds are funded by payable `challenge`, and valid bonds o
 
 `bonds_received = bonds_locked + bonds_returned + bonds_forfeited`.
 
-The losing challenger transfers bond credit to the counterparty, while a decision reversal returns the bond to challenger. `withdraw` is the only actual value-transfer method. Invalid payable challenge attempts create caller credits rather than trapping attached value.
+The losing challenger transfers bond credit to the counterparty, while a decision reversal returns the bond to challenger. `withdraw` is the only actual value-transfer method. It marks one transfer pending while retaining the credit and global owed balance; the beneficiary confirms after checking the external wallet balance. A pending transfer blocks another emission. Cogent cannot independently query or prove an external EOA transfer, and GenLayer does not return value automatically if a child fails. The entitlement remains recorded, but safe automatic retry is unavailable. Invalid payable challenge attempts create caller credits rather than trapping attached value.
 
 ## Proposal transitions
 
@@ -38,9 +38,9 @@ The losing challenger transfers bond credit to the counterparty, while a decisio
 
 ## Source, consensus and AI constraints
 
-Principal chooses up to three allowed URL prefixes. Agent provides one offer URL under those frozen prefixes and an immutable offer reference. Vendor must explicitly accept the exact on-chain proposal using its wallet. Validators fetch this URL independently and require the offer reference in the body. They evaluate ONLY the frozen principal policy and vendor offer evidence. The public web page is untrusted data.
+Principal chooses up to three allowed URL prefixes. Agent provides one offer URL under those frozen prefixes, an immutable offer reference, and the specific product/service. Vendor must explicitly accept the exact on-chain proposal using its wallet. Validators fetch the complete bounded document independently and require strict `cogent.offer.v1` JSON binding the reference, vendor address, amount, product, and commercial terms. Duplicate keys, unknown schemas, and oversized sources are rejected. They evaluate ONLY the frozen principal policy and complete commercial terms. The public web page is untrusted data.
 
-Leader and validator each fetch and prompt independently inside `run_nondet_unsafe`. Consensus checks only the scalar result label; it does not compare arbitrary LLM reasoning. A valid leader label without validator agreement cannot commit settlement or a provisional decision.
+Leader and validator each fetch and prompt independently inside `run_nondet_unsafe`. Consensus checks the label, exact raw-source SHA-256, canonical bound-terms SHA-256, purchase-binding result and up to eight exact supporting quote pairs. A valid leader result without exact validator agreement cannot commit settlement or a provisional decision.
 
 Strict labels: `COMPLIANT`, `NON_COMPLIANT`, `INCONCLUSIVE`, `SOURCE_UNAVAILABLE`, `MODEL_OUTPUT_INVALID`. Only first two permit provisional decisions. Malformed outputs never become a payout. All arithmetic is independent of the model.
 
@@ -50,7 +50,7 @@ Strict labels: `COMPLIANT`, `NON_COMPLIANT`, `INCONCLUSIVE`, `SOURCE_UNAVAILABLE
 
 ## Challenge
 
-Principal may challenge compliant, vendor may challenge non-compliant. Each posts exactly ceil(amount*500/10000) wei. A reversed decision makes challenger successful and returns the bond; unchanged decision forfeits bond to the counterparty. A late unresolved challenge retains original provisional verdict and forfeits the challenger bond. The app must distinguish protocol challenge outcome from network-level GenLayer transaction appeals.
+Principal may challenge compliant, vendor may challenge non-compliant. Each posts exactly ceil(amount*500/10000) wei. A reversed decision makes challenger successful and returns the bond; unchanged decision forfeits bond to the counterparty. Challenges are rejected unless a complete review attempt fits before the recovery cutoff. If bounded review remains inconclusive or unavailable, the original provisional decision settles, the bond returns, and the proposal records `UNADJUDICATED_BOND_RETURNED`. This is separate from network-level GenLayer transaction appeals.
 
 ## Known intentional limits
 

@@ -1,0 +1,8 @@
+{
+  "schema": "cogent.offer.v1",
+  "reference": "QUOTE_2026_AAA",
+  "vendor_address": "0x3333333333333333333333333333333333333333",
+  "amount_wei": "100000000000000000",
+  "product": "One-time API credits package",
+  "commercial_terms": "One-time purchase. Commercial automation permitted. Customer data must not train another model. No recurring subscription is permitted."
+}

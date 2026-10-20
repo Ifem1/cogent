@@ -1,6 +1,6 @@
 # Studionet live verification
 
-**Snapshot: 19 October 2026, 19:29 UTC. Status: all live proof scenarios settled and accounting invariants pass.** The refreshed machine-readable state is [`evidence/live-read-audit.json`](evidence/live-read-audit.json).
+**Historical snapshot: 19 October 2026, 19:29 UTC.** These receipts and the read audit [`evidence/live-read-audit.json`](evidence/live-read-audit.json) describe the previous contract source, before `cogent/2`. They are not deployment or browser-flow evidence for the current reviewer fixes.
 
 ## Deployment
 

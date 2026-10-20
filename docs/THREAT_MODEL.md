@@ -8,22 +8,22 @@ This is a pre-deployment threat model. Entries marked **NEEDS LIVE PROOF** are n
 | T2 | Agent splits payments to same vendor | Cumulative per-vendor committed cap | Competing proposal and failed reservation tests |
 | T3 | Agent redirects vendor payment to own address | Agent and principal prohibited as direct vendor; vendor address signs proposal | Sender tests, malicious vendor alias/related account limitation |
 | T4 | Vendor offer URL is on spoofed or unrelated host | Principal freezes prefixes; exact URL prefix and ref checks | URL adversarial tests |
-| T5 | Vendor swaps offer after acceptance | Validators fetch accepted URL and check offer reference | Mutable source scenario; acceptance alone cannot prove immutable content |
+| T5 | Vendor swaps offer after acceptance | Validators independently hash complete bounded bytes and terms; exact source and terms fingerprints must agree | Changed-version validator mismatch test; page content is still mutable between primary and challenge reviews |
 | T6 | Vendor page contains a prompt injection | Distinct untrusted block, constrained label, validator re-evaluation | Live malicious evidence test **NEEDS LIVE PROOF** |
 | T7 | Ambiguous policy triggers paid approval | Only COMPLIANT permits provisional authorization; inconclusive returns reservation | Direct and live scenarios |
-| T8 | Leader returns one decision but validator sees another | Exact label consensus; undetermined cannot pay | Mocked disagreement test; live failure/expiry recovery |
+| T8 | Leader returns one decision but validator sees another page or evidence | Exact label, source hash, terms hash, bindings and quote-pair consensus; undetermined cannot pay | Different-page same-label validator disagreement test |
 | T9 | Validator disagreement stalls funds forever | Review request recorded before consensus; permissionless `expire_review`, bounded retries | Live contested request expiry **NEEDS LIVE PROOF** |
 | T10 | Challenge replay or wrong payable amount | Exact 5% bond and one challenge per proposal, invalid payable amount credited back | Direct bond tests |
-| T11 | Principal challenges correct approval to block payment | Unresolved challenge falls back to provisional; challenger bond forfeited | Timeout test |
+| T11 | Principal challenges correct approval to block payment | Bounded unresolved challenge preserves the provisional decision and returns the bond; no merits finding is inferred | Timeout and challenge review recovery tests |
 | T12 | Funds counted twice or stuck after mandate close | Reservation accounting, post-close failure credits principal | Late reservation close tests |
-| T13 | Vendor double withdrawal | Credit zeroed before transfer message | Multi-wallet withdrawal test |
+| T13 | Vendor double withdrawal | One pending transfer at a time; credit persists until beneficiary acknowledgement | Duplicate request, pending accounting and single emission test; live balance evidence remains required |
 | T14 | Replay offer reference | `(mandate, vendor, ref)` immutable unique key | Duplicate proposal tests |
-| T15 | Testnet transfer reverts or executes after accepted tx | Wait on finalization and check actual result; compare books vs finalized chain balance | Real value transfer confirmation **NEEDS LIVE PROOF** |
+| T15 | External transfer fails or remains uncertain | Pending entitlement remains recorded; no automatic duplicate send; beneficiary checks wallet balance before acknowledgement | Direct transfer-hook and pending test; failed transfer cannot be independently reconciled by contract, disclosed in release notes |
 | T16 | Failed payable creation traps GEN | Invalid input becomes withdrawable credit | Live invalid payable case **NEEDS LIVE PROOF** |
 | T17 | Contract reads leak secrets | Public URLs must be plain HTTPS without query/userinfo; no confidential content | Strict input tests |
 | T18 | Source contains redirects or points to local addresses | Origin/path allow-list excludes obvious local host targets; redirect behavior remains an explicit limitation | Network-specific redirect probe **NEEDS LIVE PROOF** |
 | T19 | Unlocked admin changes policy | No admin mutator, mandates immutable | ABI search + adversarial tests |
-| T20 | Fake on-chain evidence | All reports list exact tx hashes, actual contract source hash and evidence URL | Source match/verification script |
+| T20 | Fake on-chain evidence | Publish exact Cogent/2 deployment hash, finalized receipts and canonical state only after redeployment | **NEEDS LIVE PROOF** for current checkout |
 
 ## Security boundaries
 

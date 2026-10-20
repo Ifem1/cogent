@@ -47,7 +47,12 @@ const proposalBonds=proposals.reduce((sum,p)=>sum+asBig(p.bond),0n);
 if(proposalBonds!==asBig(books.bonds_locked))err.push('Proposal bond sum mismatch');
 const parties=[...new Set([...mandates.flatMap(m=>[m.owner,m.agent]),...proposals.flatMap(p=>[p.vendor,p.challenger].filter(Boolean))])];
 const partyBooks=[];
-for(const party of parties)partyBooks.push({address:party,owed:String(await read('owed_to',[party])),lastRefusal:await read('last_refusal_of',[party])});
+for(const party of parties){
+ const owed=String(await read('owed_to',[party]));
+ const pendingWithdrawal=String(await read('withdrawal_pending_for',[party]));
+ if(BigInt(pendingWithdrawal)>BigInt(owed))err.push(`Party ${party}: pending withdrawal exceeds recorded credit`);
+ partyBooks.push({address:party,owed,pendingWithdrawal,lastRefusal:await read('last_refusal_of',[party])});
+}
 const report={network:'GenLayer Studionet',chainId:61999,contract:address,sourceSha256,deployedSourceSha256,generatedAt:new Date().toISOString(),mandates:nMandates,proposals:nProposals,books,partyBooks,rows:mandates,offerRows:proposals,errors:err};
 const destination=path.join(root,'docs/evidence/live-read-audit.json');
 fs.mkdirSync(path.dirname(destination),{recursive:true});

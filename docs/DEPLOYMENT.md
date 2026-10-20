@@ -1,6 +1,6 @@
 # Canonical deployment record
 
-**Status: COGENT COMPLETE — VERIFIED AND SUBMISSION READY.** The source-matched Studionet contract and production frontend are deployed. The happy path, both challenge directions, controlled reversal, real vendor document review, bounded unavailable-source recovery and withdrawals have finalized receipts. Current canonical readback reports zero accounting invariant failures. The dev-only dependency advisory is explicitly accepted and documented.
+**Historical record only.** The contract and frontend below were deployed before the `cogent/2` reviewer fixes. Their receipts do not prove the current checkout. A fresh contract deployment and source-hash verification are required. The user handles Vercel deployment.
 
 - Repository: [`Ifem1/cogent`](https://github.com/Ifem1/cogent)
 - Contract source commit: `2b0f06912f6e225af209ce2efffcc89294bfd199`

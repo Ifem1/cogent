@@ -51,11 +51,14 @@ export function WalletProvider({children}:{children:React.ReactNode}){
    const liveChain=String(await provider.request({method:'eth_chainId'}));
    const liveAccounts=await provider.request({method:'eth_accounts'});
    if(BigInt(liveChain)!==BigInt(CHAIN_ID)||!Array.isArray(liveAccounts)||String(liveAccounts[0]).toLowerCase()!==address.toLowerCase())throw new Error('Wallet account or network changed. Reconnect before submitting.');
+   const waitFinalized=async(hash:TransactionHash,receiptMethod:string)=>{
+    await client.waitForTransactionReceipt({hash,status:TransactionStatus.FINALIZED,retries:240,interval:3000});
+    const receipt=await client.getTransaction({hash});
+    assertSuccessfulReceipt(receipt,receiptMethod);
+   };
    const tx={address:CONTRACT as `0x${string}`,functionName:method,args:args as CalldataEncodable[],value:value??0n};
    const hash=await client.writeContract(tx) as TransactionHash;
-   await client.waitForTransactionReceipt({hash,status:TransactionStatus.FINALIZED,retries:240,interval:3000});
-   const receipt=await client.getTransaction({hash});
-   assertSuccessfulReceipt(receipt,method);
+   await waitFinalized(hash,method);
    return hash;
   } finally {pending.current=false;setBusy(false)}
  },[address,networkOk]);

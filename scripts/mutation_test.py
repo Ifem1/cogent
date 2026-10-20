@@ -23,6 +23,10 @@ MUTANTS={
  'bond_exactness':('assert val == _bond(p["amount"]),','assert val > 0,','test_wrong_bond_credited_back'),
  'closed_refund':('if m["closed"]:\n                m["refunded"]','if False:\n                m["refunded"]','test_closed_mandate_late_reservation_refund'),
  'terminal_review':('p["review_due"] = 0\n        self._savem(m)','p["review_due"] = p["review_due"]\n        self._savem(m)','test_terminal_recovery_cannot_reopen_or_release_twice'),
+ 'offer_amount_binding':('and str(int(offer["amount_wei"])) == snapshot_p["amount"]','and True','test_offer_must_bind_price_vendor_and_product'),
+ 'validator_source_fingerprint':('return leader_result.calldata == finalize_assessment(context, result)','return leader_result.calldata.get("label") == finalize_assessment(context, result).get("label")','test_independent_validator_retrieves_again'),
+ 'unresolved_challenge_bond_return':('self._credit(p["challenger"], val)','self._credit(p["vendor"], val)','test_unresolved_challenge_returns_bond_and_keeps_prior_decision'),
+ 'withdrawal_duplicate_lock':('assert int(self.pending_withdrawals.get(me, u256(0))) == 0, "withdrawal already pending"','assert True, "withdrawal already pending"','test_withdraw_keeps_credit_pending_and_emits_once_until_confirmation'),
 }
 
 def main():

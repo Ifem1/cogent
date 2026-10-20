@@ -6,7 +6,7 @@
 
 Cogent is an escrow-backed spending-authority primitive for autonomous purchasing agents built for **GenLayer Studionet (chain 61999)**. A principal funds an immutable mandate, appoints a spending agent, fixes a human-readable compliance policy and allowed public offer sources, and imposes numeric budget limits. The agent proposes a specific purchase. The vendor accepts it with its own address. Independent GenLayer validators retrieve the vendor offer, check it against the frozen policy and agree on a constrained label. Only the Intelligent Contract decides whether locked funds become vendor credits or return to the mandate. A bounded challenge can trigger independent reevaluation.
 
-**This is source code plus a full integration handoff, not a claim of a completed live deployment.** No address or transaction proof is fabricated. Read [Delivery status](#delivery-status) before using the site.
+**This checkout contains the Cogent/2 reviewer remediation. It must be deployed as a new contract before these rules are active on Studionet.** The existing deployment and its historic receipts refer to older source. The Vercel site is user-managed; the user will deploy the updated frontend.
 
 ## What it solves
 
@@ -17,8 +17,8 @@ A deterministic chain can enforce *amount ≤ spending limit*, but not reliably 
 ## Why GenLayer is essential
 
 - Frozen human-readable spending policies need semantic interpretation against current external vendor offers.
-- Each validator independently fetches the exact frozen HTTPS offer URL, validates that the quoted reference is present, and independently classifies the same policy.
-- Consensus compares *only* a single stable label: `COMPLIANT`, `NON_COMPLIANT`, `INCONCLUSIVE`, `SOURCE_UNAVAILABLE` or `MODEL_OUTPUT_INVALID`.
+- Each validator independently fetches the exact frozen HTTPS offer URL, validates the structured offer bindings, hashes the complete bounded source, and independently classifies the complete commercial terms.
+- Consensus compares the decision label, exact source and terms fingerprints, purchase bindings, and bounded supporting quotations. A matching label over different page bytes is not agreement.
 - Model-generated prose cannot affect money, introduce new sources, invent a vendor address or select a payout.
 - A failed consensus need not strand funds. The deterministic `request_review` opens an observable window; if `observe_review` never reaches consensus, anyone may call `expire_review` and consume a bounded retry.
 
@@ -48,16 +48,16 @@ create_mandate (exact value) → funded mandate
                    ├─ finalize (unchallenged after deadline)
                    └─ challenge (exact 5% by economically opposing party)
                          → CHALLENGED → request/observe second review
-                              ├─ resolved decision → final payment or refusal
-                              └─ recovery timeout → original provisional decision
-                                          with unsuccessful challenger bond forfeiture
+                              ├─ determinate reversal/uphold → final payment or refusal
+                              └─ unresolved technical/evidence review → original decision,
+                                  returned bond, and explicit UNADJUDICATED outcome
 ```
 
 All successful vendor settlements credit `owed_to(vendor)` first. Only `withdraw` moves value. No admin can move funds, change policy or approve a purchase directly.
 
 ## Frozen terms
 
-Mandates fix: owner address, agent address, exact funded GEN, title, policy, 1–3 HTTPS source prefixes, per-purchase cap, cumulative per-vendor cap, expiry, and a bounded total count. Proposals fix: vendor address, exact value, source URL inside those prefixes and unique 8–120-character offer reference. The public offer body must contain the exact reference. **Vendor signing acceptance is an additional gate.**
+Mandates fix: owner address, agent address, exact funded GEN, title, policy, 1–3 HTTPS source prefixes, per-purchase cap, cumulative per-vendor cap, expiry, and a bounded total count. Proposals fix: vendor address, exact value, source URL inside those prefixes, unique offer reference, and product/service. The complete source must be JSON using `cogent.offer.v1`, binding reference, vendor wallet, exact `amount_wei`, product and complete commercial terms. Duplicate JSON keys, unsupported schemas, mismatched bindings and source bodies above 16 KiB fail closed. See the [offer example](examples/cogent-offer.v1.json). **Vendor signing acceptance is an additional gate.**
 
 Redirection, source authenticity, mutable off-chain evidence and vendor delivery remain documented limitations; see [Threat model](docs/THREAT_MODEL.md).
 
@@ -69,7 +69,7 @@ For each mandate, accounting is kept with integer wei, and the following is inte
 funded = available + reserved + paid + refunded
 ```
 
-`paid` and `refunded` mean credited obligations, not necessarily completed outbound transfers. Valid challenge-bond accounting obeys:
+`paid` and `refunded` mean credited obligations, not necessarily completed outbound transfers. Withdrawal keeps the credit and liability pending until the beneficiary checks their wallet balance and submits `confirm_withdrawal`; pending credits cannot emit a second transfer. GenLayer does not expose an on-chain callback that lets this contract prove an external EOA transfer succeeded, and a failed child transfer is not automatically refunded. A failed or uncertain transfer therefore leaves a visible pending entitlement that cannot safely be retried automatically. Valid challenge-bond accounting obeys:
 
 ```text
 bonds_received = bonds_locked + bonds_returned + bonds_forfeited
@@ -84,7 +84,7 @@ Rejected payable calls create withdrawable credits and are tracked separately. V
 - Validator disagreement means no nondeterministic state mutation. The previously stored review request can expire deterministically.
 - Requests are spaced by retry intervals, attempted only a bounded number of times.
 - An unsettled accepted offer can be released to the principal's available mandate balance at recovery deadline.
-- A challenged decision that cannot be re-reviewed before final grace falls back to the **previous consensus-backed provisional verdict**, and the challenger loses the bond. This trade-off prioritizes challenge liveness but should be explicitly reviewed.
+- A challenge cannot be accepted unless at least one complete review window remains. The effective review window includes three bounded attempts and retry gaps. If no determinate second result is reached, the prior verdict settles, the bond is returned, and the manifest records `UNADJUDICATED_BOND_RETURNED`.
 - An expired mandate can refund only unreserved value; outstanding reservations remain protected until their own terminal resolution.
 
 ## Deployment and app
@@ -98,12 +98,13 @@ Rejected payable calls create withdrawable credits and are tracked separately. V
 | SDK (frontend) | `genlayer-js@1.1.8` |
 | Wallet | External injected EIP-1193, no application-managed keys |
 | Frontend | Next.js App Router, TypeScript, custom responsive design |
-| Deployed contract address | `0x5E09f5E1b5E0c3c2e1A85aDcC3C0F097f5902d93` (Studionet) |
-| Live Vercel URL | https://frontend-olive-one-18.vercel.app |
+| Previous contract deployment | `0x5E09f5E1b5E0c3c2e1A85aDcC3C0F097f5902d93` (older source; not Cogent/2) |
+| Updated contract deployment | Required; do not use the previous address as proof for Cogent/2 |
+| Vercel | User deploys the updated frontend |
 
-The source-matched Studionet deployment and production frontend are live. See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) and [`docs/LIVE_VERIFICATION.md`](docs/LIVE_VERIFICATION.md) for finalized receipts, current readback and the documented advisory acceptance.
+See [`docs/REVIEW_REMEDIATION.md`](docs/REVIEW_REMEDIATION.md) for the corrected scope, passing checks, and steps that still require a fresh contract deployment and browser-originated live verification. Historical transactions remain recorded in [`docs/LIVE_VERIFICATION.md`](docs/LIVE_VERIFICATION.md) and refer to the previous contract.
 
-The web app reads final state without requiring a wallet, presents mandate/proposal IDs and status, converts GEN to wei exactly with Viem, and only offers actions permitted by current state, connected wallet role and network. Wallet writes are checked against the active Studionet account and chain, await finalization and validate the contract execution result before reporting success. No mock records and no backend authority.
+The web app reads final state without requiring a wallet, presents mandate/proposal IDs and status, converts GEN to wei exactly with Viem, and only offers actions permitted by current state, connected wallet role and network. Wallet writes are checked against the active Studionet account and chain and validate finalized execution. Withdrawal confirmation is an explicit beneficiary attestation after checking their external wallet balance; the contract cannot independently prove that the external payment arrived.
 
 ## Local commands
 
@@ -133,9 +134,8 @@ Both the root GenLayer CLI and frontend dependencies are pinned with npm lockfil
 
 ## Tests and evidence
 
-- **88 contract tests passed** locally with GenLayer Direct Mode and the pinned GenVM runner; all nine recorded contract mutants were killed.
-- GenVM lint, validation, schema inspection and typechecking pass. Frontend checks are recorded in [`docs/TESTING.md`](docs/TESTING.md).
-- There are no invented transaction hashes, wallet balances, source-matched chain deployments, or captured end-to-end receipts.
+- Contract Direct Mode, frontend, and lint checks for the current checkout are recorded in [`docs/REVIEW_REMEDIATION.md`](docs/REVIEW_REMEDIATION.md). Historic live verification is not evidence for Cogent/2.
+- A new source hash, deployment receipt, browser-originated flow and final canonical readback are required after redeployment. No Vercel deployment is performed by this repository workflow.
 
 The final Codex handoff requires the critical happy and adversarial Direct Mode flows, two roles and real live wallet executions, immutable public offer fixtures, withdrawn credits, accounting conservation, and a verified deployment report before calling Cogent submission-ready.
 

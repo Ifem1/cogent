@@ -7,7 +7,7 @@ contract=root/'contracts/cogent.py'
 code=contract.read_bytes()
 ast.parse(code,filename=str(contract))
 source=code.decode()
-expected=['create_mandate','propose','accept_offer','request_review','observe_review','expire_review','challenge','finalize','expire_challenge','expire_unresolved','close_mandate','withdraw','get_mandate','get_proposal']
+expected=['create_mandate','propose','accept_offer','request_review','observe_review','expire_review','challenge','finalize','expire_challenge','expire_unresolved','close_mandate','withdraw','confirm_withdrawal','get_mandate','get_proposal','withdrawal_pending_for']
 missing=[name for name in expected if f'def {name}(' not in source]
 if missing:raise SystemExit('Missing public surface: '+', '.join(missing))
 for bad in ('eval(', 'exec(', 'os.system(', 'pickle.loads(', 'generatePrivateKey'):
