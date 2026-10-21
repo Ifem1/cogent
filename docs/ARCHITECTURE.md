@@ -22,7 +22,7 @@ Separately, challenge bonds are funded by payable `challenge`, and valid bonds o
 
 `bonds_received = bonds_locked + bonds_returned + bonds_forfeited`.
 
-The losing challenger transfers bond credit to the counterparty, while a decision reversal returns the bond to challenger. `withdraw` is the only actual value-transfer method. It marks one transfer pending while retaining the credit and global owed balance; the beneficiary confirms after checking the external wallet balance. A pending transfer blocks another emission. Cogent cannot independently query or prove an external EOA transfer, and GenLayer does not return value automatically if a child fails. The entitlement remains recorded, but safe automatic retry is unavailable. Invalid payable challenge attempts create caller credits rather than trapping attached value.
+The losing challenger transfers bond credit to the counterparty, while a decision reversal returns the bond to challenger. `withdraw` is the only actual value-transfer method. It marks one transfer pending while retaining the credit and global owed balance; the beneficiary confirms after independent reconciliation. EOA payout is an external message executed by the ghost at finalization, not an asynchronous IC child transfer. The contract cannot authenticate the EVM receipt or retry safely while the first outcome is uncertain, so it preserves pending credit and blocks duplicates. See [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md) for the reconciliation steps and runtime boundary. Invalid payable challenge attempts create caller credits rather than trapping attached value.
 
 ## Proposal transitions
 

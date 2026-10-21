@@ -372,6 +372,28 @@ def test_withdraw_keeps_credit_pending_and_emits_once_until_confirmation(deploye
  with pytest.raises(AssertionError,match='no credit'):c.withdraw()
  assert len(emissions)==1
 
+def test_stalled_outgoing_transfer_stays_owed_and_cannot_be_reemitted(deployed,direct_vm):
+ c=deployed;vm=direct_vm;pid=propose_and_accept(c,vm);review(c,vm,pid)
+ vm.warp('2026-10-20T14:00:00+00:00');c.finalize(pid)
+ from genlayer import Address
+ vm.sender=Address(VENDOR)
+ emissions=[]
+ def capture(_vm,request):
+  if 'EthSend' in request:
+   emissions.append(request['EthSend'])
+   return {'ok':None}
+  return None
+ vm._gl_call_hook=capture
+ c.withdraw()
+ # Model a finalized request whose external transfer cannot yet be independently
+ # established. With no authenticated receipt callback, the safe state is locked.
+ assert len(emissions)==1
+ assert c.withdrawal_pending_for(VENDOR)==10**17
+ assert c.owed_to(VENDOR)==10**17
+ assert int(json.loads(c.get_accounting())['owed'])==10**17
+ with pytest.raises(AssertionError,match='already pending'):c.withdraw()
+ assert len(emissions)==1
+
 def test_invalid_payable_creation_is_refundable(deployed,direct_vm):
  direct_vm.sender=STRANGER;direct_vm.value=123
  assert deployed.create_mandate(AGENT,'bad','bad','[]',1,1,0)==-1

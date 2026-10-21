@@ -153,9 +153,14 @@ const offerASha256 = await verifySource(offerAUrl, offerA);
 const offerB = offer('CGT2026B', (amount + 1n).toString()); // deliberate amount mismatch
 const offerBUrl = offerUrl(offerB);
 const offerBSha256 = await verifySource(offerBUrl, offerB);
+const offerC = offer('CGT2026C', amount.toString());
+offerC.commercial_terms = 'Renews monthly.';
+const offerCUrl = offerUrl(offerC);
+const offerCSha256 = await verifySource(offerCUrl, offerC);
 report.offers = [
   { expected: offerA, url: offerAUrl, sourceSha256: offerASha256 },
   { expected: { ...offerB, amount_wei: amount.toString() }, fetched: offerB, url: offerBUrl, sourceSha256: offerBSha256, adversarialCase: 'correct reference but mismatched amount' },
+  { expected: offerC, url: offerCUrl, sourceSha256: offerCSha256, adversarialCase: 'all purchase bindings valid; recurring commercial term violates frozen principal policy' },
 ];
 save();
 
@@ -174,7 +179,7 @@ async function acceptAndReview(reference, url, phase) {
   const proposalId = Number(report[`${phase}ProposalId`] ?? before + 1);
   report[`${phase}ProposalId`] = proposalId;
   await send('agent', `${phase} propose`, 'propose', [mandateId, addresses.vendor, amount, url, reference, 'Cogent']);
-  if (Number(await publicClient.readContract({ address: contractAddress, functionName: 'get_proposal_count' })) !== proposalId) throw new Error('Proposal count did not increment.');
+  if (Number(await publicClient.readContract({ address: contractAddress, functionName: 'get_proposal_count' })) < proposalId) throw new Error('Proposal count did not reach the recorded proposal ID.');
   await send('vendor', `${phase} vendor accept`, 'accept_offer', [proposalId]);
   await send('principal', `${phase} request primary review`, 'request_review', [proposalId]);
   await send('principal', `${phase} observe primary review`, 'observe_review', [proposalId]);
@@ -210,22 +215,62 @@ if (firstFinal.status === 'RELEASED') {
 }
 
 const second = await acceptAndReview('CGT2026B', offerBUrl, 'mismatchedAmount');
-if (second.proposal.status !== 'PROVISIONAL_NON_COMPLIANT') throw new Error(`Expected amount-mismatch refusal, got ${second.proposal.status}.`);
 const mismatchManifest = JSON.parse(second.proposal.primary_manifest);
 if (mismatchManifest.bindings_valid !== false || mismatchManifest.label !== 'NON_COMPLIANT') throw new Error('Purchase amount mismatch was not rejected by the contract binding check.');
-await send('vendor', 'vendor posts exact 5% challenge to mismatch refusal', 'challenge', [second.proposalId], bond);
-let mismatchChallenged = await read('get_proposal', [second.proposalId]);
-if (Number(mismatchChallenged.review_due) === 0) {
-  await waitPastRetryGap(mismatchChallenged.last_attempt);
-  await send('agent', 'request mismatch challenge review after retry interval', 'request_review', [second.proposalId]);
-  mismatchChallenged = await read('get_proposal', [second.proposalId]);
-  if (Number(mismatchChallenged.review_due) === 0) throw new Error('Mismatch challenge review request did not open a live review window.');
+if (second.proposal.status === 'PROVISIONAL_NON_COMPLIANT') {
+  await send('vendor', 'vendor posts exact 5% challenge to mismatch refusal', 'challenge', [second.proposalId], bond);
+  let mismatchChallenged = await read('get_proposal', [second.proposalId]);
+  if (Number(mismatchChallenged.review_due) === 0) {
+    await waitPastRetryGap(mismatchChallenged.last_attempt);
+    await send('agent', 'request mismatch challenge review after retry interval', 'request_review', [second.proposalId]);
+    mismatchChallenged = await read('get_proposal', [second.proposalId]);
+    if (Number(mismatchChallenged.review_due) === 0) throw new Error('Mismatch challenge review request did not open a live review window.');
+  }
+  if (Number(mismatchChallenged.review_due) > 0) await send('agent', 'observe mismatch challenge review', 'observe_review', [second.proposalId]);
+} else if (second.proposal.status !== 'REFUSED' || second.proposal.challenge_outcome !== 'UPHELD') {
+  throw new Error(`Expected an open or upheld mismatch refusal, got ${second.proposal.status}.`);
 }
-if (Number(mismatchChallenged.review_due) > 0) await send('agent', 'observe mismatch challenge review', 'observe_review', [second.proposalId]);
 const secondFinal = await read('get_proposal', [second.proposalId]);
 report.mismatchFinal = { status: secondFinal.status, finalCode: secondFinal.final_code, challengeOutcome: secondFinal.challenge_outcome, challengeManifest: JSON.parse(secondFinal.challenge_manifest) };
 save();
 if (secondFinal.status !== 'REFUSED' || secondFinal.challenge_outcome !== 'UPHELD') throw new Error('The mismatched-amount purchase was not refused after challenge review.');
+
+const third = await acceptAndReview('CGT2026C', offerCUrl, 'policyViolation');
+const policyManifest = JSON.parse(third.proposal.primary_manifest);
+report.policyViolationPrimary.manifest = policyManifest;
+if (policyManifest.bindings_valid !== true || policyManifest.label !== 'NON_COMPLIANT') {
+  throw new Error(`Expected a binding-valid policy refusal, got ${policyManifest.label}/${policyManifest.bindings_valid}.`);
+}
+if (policyManifest.source_sha256 !== offerCSha256 || !policyManifest.supporting_clauses.some((item) =>
+  item.policy_clause === 'Only one-time purchases are permitted overall.' && item.offer_clause === 'Renews monthly.')) {
+  throw new Error('Primary manifest is missing the expected source fingerprint or exact policy evidence.');
+}
+if (third.proposal.status !== 'PROVISIONAL_NON_COMPLIANT') throw new Error(`Unexpected policy-violation state: ${third.proposal.status}.`);
+await send('vendor', 'vendor posts exact 5% challenge to policy refusal', 'challenge', [third.proposalId], bond);
+let policyChallenged = await read('get_proposal', [third.proposalId]);
+if (Number(policyChallenged.review_due) === 0) {
+  await waitPastRetryGap(policyChallenged.last_attempt);
+  await send('agent', 'request policy challenge review after retry interval', 'request_review', [third.proposalId]);
+  policyChallenged = await read('get_proposal', [third.proposalId]);
+  if (Number(policyChallenged.review_due) === 0) throw new Error('Policy challenge review request did not open a live review window.');
+}
+if (Number(policyChallenged.review_due) > 0) await send('agent', 'observe policy challenge review', 'observe_review', [third.proposalId]);
+const thirdFinal = await read('get_proposal', [third.proposalId]);
+report.policyViolationFinal = {
+  status: thirdFinal.status,
+  finalCode: thirdFinal.final_code,
+  challengeOutcome: thirdFinal.challenge_outcome,
+  challengeManifest: JSON.parse(thirdFinal.challenge_manifest),
+};
+save();
+if (thirdFinal.status !== 'REFUSED' || thirdFinal.challenge_outcome !== 'UPHELD') throw new Error('The frozen-policy violation was not refused after challenge review.');
+if (report.policyViolationFinal.challengeManifest.label !== 'NON_COMPLIANT'
+    || report.policyViolationFinal.challengeManifest.bindings_valid !== true
+    || report.policyViolationFinal.challengeManifest.source_sha256 !== offerCSha256
+    || !report.policyViolationFinal.challengeManifest.supporting_clauses.some((item) =>
+      item.policy_clause === 'Only one-time purchases are permitted overall.' && item.offer_clause === 'Renews monthly.')) {
+  throw new Error('Challenge manifest does not independently support the binding-valid policy refusal.');
+}
 
 async function attemptVerifiedWithdrawal(role) {
   const address = addresses[role];
@@ -233,7 +278,7 @@ async function attemptVerifiedWithdrawal(role) {
   if (owed === 0n) return { role, address, owed: '0', skipped: true };
   const pendingBefore = BigInt(String(await publicClient.readContract({ address: contractAddress, functionName: 'withdrawal_pending_for', args: [address] })));
   const balanceBefore = await publicClient.getBalance({ address });
-  if (pendingBefore === 0n) await send(role, `${role} withdraw`, 'withdraw');
+  if (pendingBefore === 0n) await send(role, `${role} withdraw policy challenge proceeds`, 'withdraw');
   let balanceAfter = balanceBefore;
   for (let attempt = 0; attempt < 30; attempt++) {
     balanceAfter = await publicClient.getBalance({ address });
@@ -243,7 +288,7 @@ async function attemptVerifiedWithdrawal(role) {
   const pending = BigInt(String(await publicClient.readContract({ address: contractAddress, functionName: 'withdrawal_pending_for', args: [address] })));
   const record = { role, address, owed: owed.toString(), pending: pending.toString(), balanceBefore: balanceBefore.toString(), balanceAfter: balanceAfter.toString(), balanceIncrease: (balanceAfter - balanceBefore).toString(), confirmed: false };
   if (pending === owed && balanceAfter - balanceBefore >= owed) {
-    await send(role, `${role} confirm externally observed withdrawal`, 'confirm_withdrawal');
+    await send(role, `${role} confirm policy challenge withdrawal after observed balance increase`, 'confirm_withdrawal');
     record.confirmed = true;
   }
   return record;

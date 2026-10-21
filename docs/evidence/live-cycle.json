@@ -543,6 +543,195 @@
           "errorDescription": null
         }
       ]
+    },
+    {
+      "phase": "policyViolation propose",
+      "role": "agent",
+      "method": "propose",
+      "hash": "0x7056a84fa31e5931481add58b52cb6a334fd1926b9c0b7f43742a2ddb7f5a7f2",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "policyViolation vendor accept",
+      "role": "vendor",
+      "method": "accept_offer",
+      "hash": "0x62a8f47e2e52039e7febaa277ac6620828a6d60135e658f933e821cf6499b30a",
+      "sender": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "status": "FINALIZED",
+      "votes": {
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "idle",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "idle"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "policyViolation request primary review",
+      "role": "principal",
+      "method": "request_review",
+      "hash": "0xb71cc9b3046cf7892b9f8b30d9854b7d2520a5d66e5d6fbc097242f159ee0e22",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "policyViolation observe primary review",
+      "role": "principal",
+      "method": "observe_review",
+      "hash": "0xbc12e332ad9b922f8966d554dcd5cedaee28ed5ae109cf0f24ba2c40d969fd4e",
+      "sender": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "status": "FINALIZED",
+      "votes": {
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "idle",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "vendor posts exact 5% challenge to policy refusal",
+      "role": "vendor",
+      "method": "challenge",
+      "hash": "0x782c4f9e48a63f00468e2bbe87b4cad09ac64c33b75691776f4b6125b61d6e53",
+      "sender": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+      "status": "FINALIZED",
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "agree",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "request policy challenge review after retry interval",
+      "role": "agent",
+      "method": "request_review",
+      "hash": "0xdb91f92cdeb129c2beef5a3fd7acefe8b9741931d02677e3b474d1e1dc0079c1",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "idle",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "idle"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "ERROR",
+          "errorCode": "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+          "errorDescription": null
+        }
+      ]
+    },
+    {
+      "phase": "observe policy challenge review",
+      "role": "agent",
+      "method": "observe_review",
+      "hash": "0x2bb3c6aade095a514d68a6dea588fc544aec101d4e09df25b9b43441de95faa3",
+      "sender": "0x6B476BF35C4968F3f1775c0CA2110591b4B5FCBe",
+      "status": "FINALIZED",
+      "votes": {
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "idle",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "execution": [
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        },
+        {
+          "result": "SUCCESS",
+          "errorCode": null,
+          "errorDescription": null
+        }
+      ]
     }
   ],
   "startedAt": "2026-10-20T21:06:09.878Z",
@@ -579,6 +768,19 @@
       "url": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QiIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDEiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6Ik9uZS10aW1lIHB1cmNoYXNlLiJ9",
       "sourceSha256": "3f06673cddb66723ffad0b986f42cddec2e5944f4bd75e31651294f3726da3a5",
       "adversarialCase": "correct reference but mismatched amount"
+    },
+    {
+      "expected": {
+        "schema": "cogent.offer.v1",
+        "reference": "CGT2026C",
+        "vendor_address": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
+        "amount_wei": "5000000000000000",
+        "product": "Cogent",
+        "commercial_terms": "Renews monthly."
+      },
+      "url": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QyIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDAiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6IlJlbmV3cyBtb250aGx5LiJ9",
+      "sourceSha256": "4818c445eeb987ae7847d2fe0952aea6a233cc18f2c5e4b6092e39b51d6a1566",
+      "adversarialCase": "all purchase bindings valid; recurring commercial term violates frozen principal policy"
     }
   ],
   "mandateId": 2,
@@ -601,7 +803,7 @@
       ],
       "terms_sha256": "6f9d771c85766aa6fa6b865e74718d40882b102750aea72b22913cdb9c830ce4"
     },
-    "currentProposalStatus": "CHALLENGED"
+    "currentProposalStatus": "RELEASED"
   },
   "compliantFinal": {
     "status": "RELEASED",
@@ -638,7 +840,7 @@
       "supporting_clauses": [],
       "terms_sha256": "906148f0b7b7f5117dcb797e06984512eef87e65dc36af1709563e93c97a4847"
     },
-    "currentProposalStatus": "PROVISIONAL_NON_COMPLIANT"
+    "currentProposalStatus": "REFUSED"
   },
   "mismatchFinal": {
     "status": "REFUSED",
@@ -660,22 +862,8 @@
     {
       "role": "vendor",
       "address": "0x5Bf2926e49d5896C975B03fee2FDA5e96Cb4dD04",
-      "owed": "5250000000000000",
-      "pending": "5250000000000000",
-      "balanceBefore": "1009807750000000000000",
-      "balanceAfter": "1009813000000000000000",
-      "balanceIncrease": "5250000000000000",
-      "confirmed": true
-    },
-    {
-      "role": "principal",
-      "address": "0x39680bd423437C0Eaa18493629652821Ec672C61",
-      "owed": "250000000000000",
-      "pending": "250000000000000",
-      "balanceBefore": "953704009999999999791",
-      "balanceAfter": "953704259999999999791",
-      "balanceIncrease": "250000000000000",
-      "confirmed": true
+      "owed": "0",
+      "skipped": true
     }
   ],
   "finalMandate": {
@@ -699,17 +887,69 @@
     "title": "Cogent Review Live Cycle"
   },
   "finalAccounting": {
-    "bonds_forfeited": "500000000000000",
+    "bonds_forfeited": "750000000000000",
     "bonds_locked": "0",
-    "bonds_received": "500000000000000",
+    "bonds_received": "750000000000000",
     "bonds_returned": "0",
     "mandates": 2,
-    "owed": "0",
-    "proposals": 2,
+    "owed": "250000000000000",
+    "proposals": 3,
     "refused_payable_value": "0",
     "release": "cogent/2"
   },
-  "finalPrincipalCredit": "0",
+  "finalPrincipalCredit": "250000000000000",
   "finalVendorCredit": "0",
-  "completedAt": "2026-10-20T21:38:31.494Z"
+  "completedAt": "2026-10-20T23:01:41.835Z",
+  "policyViolationProposalId": 3,
+  "policyViolationPrimary": {
+    "status": "NON_COMPLIANT",
+    "manifest": {
+      "at": 1792536533,
+      "bindings_valid": true,
+      "label": "NON_COMPLIANT",
+      "phase": "PRIMARY",
+      "round": 1,
+      "source": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QyIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDAiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6IlJlbmV3cyBtb250aGx5LiJ9",
+      "source_sha256": "4818c445eeb987ae7847d2fe0952aea6a233cc18f2c5e4b6092e39b51d6a1566",
+      "supporting_clauses": [
+        {
+          "offer_clause": "Renews monthly.",
+          "policy_clause": "Only one-time purchases are permitted overall."
+        }
+      ],
+      "terms_sha256": "48013fa9af866d9d0e9ec928093a9560c473939bbbc0dee31fe32e53c9403b2f"
+    },
+    "currentProposalStatus": "PROVISIONAL_NON_COMPLIANT"
+  },
+  "policyViolationFinal": {
+    "status": "REFUSED",
+    "finalCode": "NON_COMPLIANT",
+    "challengeOutcome": "UPHELD",
+    "challengeManifest": {
+      "at": 1792537166,
+      "bindings_valid": true,
+      "label": "NON_COMPLIANT",
+      "phase": "CHALLENGE",
+      "round": 2,
+      "source": "https://httpbin.org/base64/eyJzY2hlbWEiOiJjb2dlbnQub2ZmZXIudjEiLCJyZWZlcmVuY2UiOiJDR1QyMDI2QyIsInZlbmRvcl9hZGRyZXNzIjoiMHg1QmYyOTI2ZTQ5ZDU4OTZDOTc1QjAzZmVlMkZEQTVlOTZDYjRkRDA0IiwiYW1vdW50X3dlaSI6IjUwMDAwMDAwMDAwMDAwMDAiLCJwcm9kdWN0IjoiQ29nZW50IiwiY29tbWVyY2lhbF90ZXJtcyI6IlJlbmV3cyBtb250aGx5LiJ9",
+      "source_sha256": "4818c445eeb987ae7847d2fe0952aea6a233cc18f2c5e4b6092e39b51d6a1566",
+      "supporting_clauses": [
+        {
+          "offer_clause": "Renews monthly.",
+          "policy_clause": "Only one-time purchases are permitted overall."
+        }
+      ],
+      "terms_sha256": "48013fa9af866d9d0e9ec928093a9560c473939bbbc0dee31fe32e53c9403b2f"
+    }
+  },
+  "remainingWithdrawals": [
+    {
+      "role": "principal",
+      "address": "0x39680bd423437C0Eaa18493629652821Ec672C61",
+      "amountWei": "250000000000000",
+      "state": "CREDITED_NOT_WITHDRAWN",
+      "pendingTransferWei": "0",
+      "note": "No new withdrawal transaction for this challenge-bond credit is present in the finalized transaction list."
+    }
+  ]
 }

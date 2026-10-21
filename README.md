@@ -69,7 +69,7 @@ For each mandate, accounting is kept with integer wei, and the following is inte
 funded = available + reserved + paid + refunded
 ```
 
-`paid` and `refunded` mean credited obligations, not necessarily completed outbound transfers. Withdrawal keeps the credit and liability pending until the beneficiary checks their wallet balance and submits `confirm_withdrawal`; pending credits cannot emit a second transfer. GenLayer does not expose an on-chain callback that lets this contract prove an external EOA transfer succeeded, and a failed child transfer is not automatically refunded. A failed or uncertain transfer therefore leaves a visible pending entitlement that cannot safely be retried automatically. Valid challenge-bond accounting obeys:
+`paid` and `refunded` mean credited obligations, not necessarily completed outbound transfers. Withdrawal keeps the credit and liability pending until the beneficiary independently reconciles the EVM payout and submits `confirm_withdrawal`; pending credits cannot emit a second transfer. Cogent cannot authenticate an external EOA receipt or recover an uncertain outcome automatically. This EOA payout is an external message, not an asynchronous IC child transfer. A stalled or uncertain transfer therefore leaves a visible pending entitlement locked against duplicate sends. See [`docs/WITHDRAWAL_FAILURE_LIMITS.md`](docs/WITHDRAWAL_FAILURE_LIMITS.md) for the reconciliation procedure and runtime limit. Valid challenge-bond accounting obeys:
 
 ```text
 bonds_received = bonds_locked + bonds_returned + bonds_forfeited
@@ -137,7 +137,7 @@ Both the root GenLayer CLI and frontend dependencies are pinned with npm lockfil
 - Contract Direct Mode, frontend, deployment-hash and live-cycle evidence for Cogent/2 are recorded in [`docs/TESTING.md`](docs/TESTING.md), [`docs/evidence/cogent-2-deployment.json`](docs/evidence/cogent-2-deployment.json), and [`docs/evidence/live-cycle.json`](docs/evidence/live-cycle.json). Historic live verification is labeled separately and is not evidence for Cogent/2.
 - The remaining acceptance proof is the complete browser-originated wallet flow through the user's Vercel deployment, with receipts and final readback. Vercel deployment is managed by the user.
 
-The core contract, direct adversarial tests, source-matched Studionet deployment, challenged live scenarios, successful withdrawals and final accounting audit are verified. Do not call the submission fully evidenced until the browser-originated Vercel flow is captured; failed or stalled outgoing-transfer recovery remains an acknowledged runtime limitation.
+The core contract, direct adversarial tests, source-matched Studionet deployment, challenged live policy-violation scenario, successful withdrawals and final accounting audit are verified. The browser-originated Vercel flow remains separate evidence; automatic recovery of an external payout whose result cannot be authenticated remains a documented runtime limitation.
 
 See [Testing](docs/TESTING.md), [Reviewer matrix](docs/REVIEWER_MATRIX.md) and [Deployment](docs/DEPLOYMENT.md).
 

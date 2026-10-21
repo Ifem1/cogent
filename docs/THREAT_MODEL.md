@@ -16,9 +16,9 @@ This model describes the deployed Cogent/2 contract on Studionet chain 61999. Di
 | T10 | Wrong challenge bond or challenge replay | Exact 5% bond and one challenge per proposal; invalid payable value is credited | Direct tests; current live cycle exercised both challenge directions with exact bonds |
 | T11 | A valid challenge cannot finish before expiry and unfairly loses its bond | Challenge accepted only when a full review window fits; inconclusive result preserves prior decision and returns bond | Direct boundary/timeout tests; current live challenges were adjudicated successfully |
 | T12 | Reservation or mandate-close accounting releases funds twice | Reservations are tracked independently; terminal recovery is one-shot | Direct late-close and replay tests; current live audit reports zero reservations |
-| T13 | Beneficiary emits duplicate withdrawals | One pending withdrawal per beneficiary; credit and liability remain until acknowledgement | Direct single-emission/duplicate-lock test and two successful live balance-confirmed withdrawals |
+| T13 | Beneficiary emits duplicate withdrawals | One pending withdrawal per beneficiary; credit and liability remain until independently reconciled acknowledgement | Direct stalled-transfer duplicate-lock regression and two successful live balance-confirmed withdrawals |
 | T14 | Offer reference is replayed | `(mandate, vendor, reference)` uniqueness constraint | Direct duplicate proposal test |
-| T15 | Outgoing GEN child transfer fails or stalls | Pending entitlement remains recorded; duplicate send is blocked pending acknowledgement | Successful transfers verified live. Failed/stalled child recovery is untested and has no safe contract-level recovery path; see [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md) |
+| T15 | Outgoing GEN transfer is delayed, fails, or its result is uncertain | Pending entitlement remains recorded; no retry or cancellation is exposed; duplicate send stays blocked | Successful external EOA transfers verified live. No authenticated terminal-failure proof exists for recovery; exact reconciliation rules and runtime limits are in [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md) |
 | T16 | Invalid payable call traps attached GEN | Rejected payable input becomes a withdrawable credit | Direct test; current Cogent/2 live test did not exercise this path |
 | T17 | Public contract state contains secrets | No secret storage; source URLs require public HTTPS without userinfo/query | Direct URI validation tests; users must never publish private vendor material |
 | T18 | Redirect or local-address fetch bypasses source boundary | URL and host checks reject known invalid targets; runtime redirect handling remains a limitation | Direct URL tests; network-specific redirect behavior not independently probed on Studionet |
@@ -35,4 +35,4 @@ For each mandate: `funded = available + reserved + paid + refunded`.
 
 For valid challenge bonds: `received = locked + returned + forfeited`.
 
-All money is represented in integer wei. A transaction hash or parent finality alone does not prove that an asynchronous outgoing transfer reached the recipient.
+All money is represented in integer wei. A transaction hash or parent finality alone does not prove that an external outgoing transfer reached the recipient.

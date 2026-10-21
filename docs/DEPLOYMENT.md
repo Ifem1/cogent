@@ -12,18 +12,19 @@
 
 ## Live cycle evidence
 
-The funded role-separated live cycle used principal, agent and vendor test accounts and is recorded in [`evidence/live-cycle.json`](evidence/live-cycle.json). It finalized two proposals:
+The funded role-separated live cycle used principal, agent and vendor test accounts and is recorded in [`evidence/live-cycle.json`](evidence/live-cycle.json). It records three proposals:
 
 - Proposal 1 bound a compliant one-time offer. The principal challenged the compliant result; a second independent review upheld it and the proposal was released.
 - Proposal 2 used the correct reference but an amount one wei above the cap. It was refused; the vendor challenged the refusal and a second independent review upheld the refusal.
+- Proposal 3 used the frozen one-time-only mandate, correct vendor, matching offer reference, matching product and exactly capped amount, but its offer said `Renews monthly.`. Both primary and challenge review refused it on commercial policy with `bindings_valid: true`; the vendor challenged and the independent challenge review upheld refusal.
 
-The exact 5% challenge bonds were adjudicated. Vendor and principal withdrawals were confirmed only after each account's observed balance increased by the exact pending amount. The final read-only audit in [`evidence/live-read-audit.json`](evidence/live-read-audit.json) records two mandates, two proposals, zero invariant failures, zero locked bonds, zero pending credits and zero refused payable value. The local frontend at `http://127.0.0.1:3002` loads the live proposal state and manifests. This CLI-run cycle does not count as browser-originated wallet proof.
+Each challenge used exactly 5% (250,000,000,000,000 wei). The losing vendor challenger bond is credited to the principal; the policy proposal's reserved purchase amount is released, never paid. The report records every finalized transaction, validator vote, primary/challenge manifest, exact role balance delta, mandate ledger and bond ledger. The earlier vendor and principal credits were withdrawn only after independent balance reconciliation. The fresh policy challenge's 250,000,000,000,000 wei principal credit remains owed and unwithdrawn. Final mandate 2 accounting is 100,000,000,000,000,000 wei funded = 95,000,000,000,000,000 available + 0 reserved + 5,000,000,000,000,000 paid + 0 refunded. Challenge bonds received/forfeited are each 750,000,000,000,000 wei; locked/returned are zero. The read-only audit in [`evidence/live-read-audit.json`](evidence/live-read-audit.json) reports zero invariant failures and the outstanding principal credit. This CLI-run cycle does not count as browser-originated wallet proof.
 
-Both observed withdrawals succeeded; failed-child recovery was not tested. The contract retains credit and blocks duplicate requests while a withdrawal is pending, but offers no safe on-chain recovery if the child fails or remains uncertain. See [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md) for runtime references, exact successful transaction evidence, and the operational rule.
+The withdrawal regression verifies that a stalled/uncertain external payout leaves the full liability pending and prevents a second send. The contract deliberately has no recovery/cancel method without authenticated failure proof. Automatic recovery of an uncertain external payout is unavailable; use the independent reconciliation procedure and runtime limitation in [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md).
 
 ## User deployment handoff
 
-The user manages the Git-connected Vercel project. The frontend must use contract `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6` and Studionet chain 61999 / RPC `https://studio.genlayer.com/api`. Confirm Vercel has built the latest GitHub commit. The remaining reviewer evidence is a browser-originated workflow on that deployment: connect the separate wallets, perform the lifecycle actions, capture transaction receipts and withdrawal balance before/after, then confirm withdrawals and record canonical final state. Do not present the existing CLI transactions as browser-originated evidence.
+The user manages the Git-connected Vercel project. The frontend must use contract `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6` and Studionet chain 61999 / RPC `https://studio.genlayer.com/api`. GitHub's latest Vercel status must be READY before deployment claims. Browser-originated wallet proof remains separate from the CLI receipts in `live-cycle.json`; do not present CLI transactions as browser-originated evidence.
 
 The previous Studionet contract and Vercel site predate Cogent/2 and are retained in [`LIVE_VERIFICATION.md`](LIVE_VERIFICATION.md) as historical evidence only.
 
