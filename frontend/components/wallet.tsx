@@ -64,10 +64,11 @@ export function WalletProvider({children}:{children:React.ReactNode}){
  },[address,networkOk]);
  return <Ctx.Provider value={{address,networkOk,busy,connect,disconnect,switchNetwork,write}}>{children}</Ctx.Provider>
 }
-export function WalletButton(){const w=useWallet();const[error,setError]=useState('');
+export function WalletButton(){const w=useWallet();const[error,setError]=useState('');const[copied,setCopied]=useState(false);
+ async function copyAddress(){try{await navigator.clipboard.writeText(w.address);setError('');setCopied(true);window.setTimeout(()=>setCopied(false),1600)}catch{setError('Could not copy wallet address. Copy it from your wallet app.')}}
  return <div className="walletcluster">
  {error&&<span className="walletError" role="alert">{error}</span>}
  {!w.address?<button className="btn accent" onClick={()=>w.connect().catch(e=>setError(String(e.message)))}>Connect wallet</button>:
- <><span className="walletaddr">{short(w.address)}</span>{!w.networkOk?<button className="btn warning" onClick={()=>w.switchNetwork().catch(e=>setError(e.message))}>Switch network</button>:<span className="network">● Studionet · 61999</span>}<button className="btn ghost tiny" onClick={w.disconnect}>Disconnect</button></>}
+ <><span className="walletaddr">{short(w.address)}</span>{!w.networkOk?<button className="btn warning" onClick={()=>w.switchNetwork().catch(e=>setError(e.message))}>Switch network</button>:<span className="network">● Studionet · 61999</span>}<button className="btn ghost tiny" onClick={()=>void copyAddress()}>{copied?'Copied':'Copy address'}</button><button className="btn ghost tiny" onClick={()=>{setCopied(false);w.disconnect()}}>Disconnect</button></>}
  </div>
 }
