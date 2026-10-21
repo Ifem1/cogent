@@ -19,9 +19,9 @@ Run `python -m pytest tests -q -p no:cacheprovider` from the repository root: 98
 
 Frontend checks are `npm run typecheck`, `npm run lint`, `npm run test`, and `npm run build` from `frontend/`. Historical counts in older handoff documents do not describe this checkout.
 
-## Remaining before reviewer acceptance
+## Remaining evidence and runtime limitation
 
-1. Complete and capture the browser-originated wallet flow on the READY Vercel deployment using separate principal, agent and vendor accounts. The CLI lifecycle and its receipts do not substitute for browser-originated proof.
+The requested new-user browser smoke check is complete: one one-wei mandate was created and verified using the connected wallet. It was intentionally limited to mandate creation. A full browser-originated lifecycle through proposal, challenge, settlement and withdrawal remains additional evidence only if a reviewer requires those stages to be demonstrated from the production browser UI; the CLI live cycle does not substitute for that proof.
 
-Repository tests, deployment source verification, live adversarial amount binding, live frozen-policy violation and challenge adjudication, successful withdrawal accounting, and canonical read audit are completed. The production browser flow remains outstanding unless captured separately. Automatic recovery of a payout whose chain result cannot be authenticated is unsupported and documented as a runtime limitation.
+Repository tests, deployment source verification, live adversarial amount binding, live frozen-policy violation and challenge adjudication, successful withdrawal accounting, and canonical read audit are completed. Failed or stalled external payout recovery is not proven: the contract has no authenticated terminal-failure proof/callback and safely retains the entitlement to prevent duplicate payment. This uncertainty and the independent reconciliation procedure are documented in [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md). A genuine recovery proof requires runtime support or a reviewed protocol-level design; a local retry test cannot establish it.
 

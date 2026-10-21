@@ -6,7 +6,7 @@
 - Contract: `0x3dC948C81F48E882d59573a9f57464F16B9f2fB6`.
 - Source SHA-256: `1adc3187940d08d566ad238e9121de43412974b3aa17b973c80838a66e2ef919`, matching local and deployed bytes.
 - Deployment receipt and validator votes: [`evidence/cogent-2-deployment.json`](evidence/cogent-2-deployment.json).
-- Latest canonical audit: [`evidence/live-read-audit.json`](evidence/live-read-audit.json), with final mandate/proposal counts, zero invariant errors, zero pending credits and zero locked bonds.
+- Latest canonical audit: [`evidence/live-read-audit.json`](evidence/live-read-audit.json), with final mandate/proposal counts, zero invariant errors and zero locked bonds. It records a remaining 250,000,000,000,000 wei principal credit from the final policy challenge; it is owed and not yet withdrawn.
 
 ## Completed funded live cycle
 
@@ -28,8 +28,8 @@ Run `node frontend/scripts/verify-live.mjs` with `COGENT_CONTRACT` set to the ad
 
 ## Remaining acceptance evidence
 
-1. Confirm the Git-connected Vercel project has built the latest GitHub commit with the verified contract address and Studionet chain/RPC settings.
-2. Run the full lifecycle through the deployed browser UI with separate principal, agent, and vendor wallets: funding, proposal, vendor acceptance, review, challenge, settlement, withdrawal and final readback. Preserve browser-originated receipts and recipient balances before/after transfer.
-3. Treat the external transfer's uncertain terminal outcome conservatively: preserve its pending entitlement and do not resend unless authenticated terminal-failure evidence becomes available. Current runtime has no contract-callable proof/callback for recovery; see [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md).
+1. The requested new-user browser smoke check is complete: one one-wei mandate was created and verified in the app using the connected wallet. It did not exercise proposal, review, challenge, settlement, or withdrawal. The user manages the Vercel deployment; verify its deployment status in Vercel if live-site confirmation is needed.
+2. A full lifecycle through the browser UI with separate principal, agent, and vendor wallets remains additional evidence only if the reviewer requires browser-originated proof for those later stages. The fresh CLI live-cycle evidence does not substitute for such proof.
+3. Treat an external transfer's uncertain terminal outcome conservatively: preserve its pending entitlement and do not resend unless authenticated terminal-failure evidence becomes available. Current runtime has no contract-callable proof/callback for recovery; see [`WITHDRAWAL_FAILURE_LIMITS.md`](WITHDRAWAL_FAILURE_LIMITS.md).
 
 The development-only `braces` advisory remains documented in [`evidence/security-advisory-review.md`](evidence/security-advisory-review.md).
